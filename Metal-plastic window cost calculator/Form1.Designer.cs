@@ -51,6 +51,7 @@
             textBoxLogin.Name = "textBoxLogin";
             textBoxLogin.Size = new Size(151, 23);
             textBoxLogin.TabIndex = 0;
+            textBoxLogin.TextChanged += textBoxLogin_TextChanged;
             // 
             // textBoxPassword
             // 
@@ -58,6 +59,7 @@
             textBoxPassword.Name = "textBoxPassword";
             textBoxPassword.Size = new Size(151, 23);
             textBoxPassword.TabIndex = 1;
+            textBoxPassword.TextChanged += textBoxLogin_TextChanged;
             // 
             // button1
             // 
@@ -72,6 +74,7 @@
             button1.TabIndex = 0;
             button1.Text = "Log In";
             button1.UseVisualStyleBackColor = false;
+            button1.Click += button1_Click;
             // 
             // label1
             // 
@@ -117,6 +120,7 @@
             textBoxFullName.Name = "textBoxFullName";
             textBoxFullName.Size = new Size(151, 23);
             textBoxFullName.TabIndex = 6;
+            textBoxFullName.TextChanged += textBoxLogin_TextChanged;
             // 
             // label_Email
             // 
@@ -133,6 +137,7 @@
             textBoxEmail.Name = "textBoxEmail";
             textBoxEmail.Size = new Size(151, 23);
             textBoxEmail.TabIndex = 8;
+            textBoxEmail.TextChanged += textBoxLogin_TextChanged;
             // 
             // checkBoxAdminReg
             // 
