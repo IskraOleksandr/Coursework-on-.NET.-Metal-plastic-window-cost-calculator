@@ -13,6 +13,8 @@ namespace Metal_plastic_window_cost_calculator
         bool IsAdmin { get; set; }
         //
         string Login { get; set; }
+        string Error_Login { set; }
+      
         string Password { get; set; }
 
         event EventHandler<EventArgs> login;

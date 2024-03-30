@@ -5,6 +5,8 @@ namespace Metal_plastic_window_cost_calculator
         #region IWindow_Calculator_View Implementation
 
         public string Login { get => textBoxLogin.Text.Trim(); set => textBoxLogin.Text = value; }
+        public string Error_Login { set => label_error_login.Text = value; }
+        
         public string Password { get => textBoxPassword.Text.Trim(); set => textBoxPassword.Text = value; }
         public string FullName { get => textBoxFullName.Text.Trim(); set => textBoxFullName.Text = value; }
         public string Email { get => textBoxEmail.Text.Trim(); set => textBoxEmail.Text = value; }
@@ -25,18 +27,24 @@ namespace Metal_plastic_window_cost_calculator
             InitializeComponent();
             label_FullName.Visible = false;
             textBoxFullName.Visible = false;
+            label_error_fullname.Visible = false;
+
             label_Email.Visible = false;
             textBoxEmail.Visible = false;
+            label_error_email.Visible = false;
+
             checkBoxAdminReg.Visible = false;
 
-            labelTitle.Location = new Point(87, 154);
+            labelTitle.Location = new Point(88, 143);
             labelTitle.Text = "LOG IN";
 
-            label_Login.Location = new Point(63, 193);
-            textBoxLogin.Location = new Point(63, 211);
+            label_Login.Location = new Point(63, 198);
+            textBoxLogin.Location = new Point(63, 216);
+            label_error_login.Location = new Point(63, 240);
 
-            label_Password.Location = new Point(63, 243);
-            textBoxPassword.Location = new Point(63, 261);
+            label_Password.Location = new Point(63, 262);
+            textBoxPassword.Location = new Point(63, 280);
+            label_error_pas.Location = new Point(63, 306);
         }
 
 
@@ -48,17 +56,24 @@ namespace Metal_plastic_window_cost_calculator
             {
                 label_FullName.Visible = true;
                 textBoxFullName.Visible = true;
+                label_error_fullname.Visible = true;
+
                 label_Email.Visible = true;
                 textBoxEmail.Visible = true;
+                label_error_email.Visible = true;
+
                 checkBoxAdminReg.Visible = true;
 
-                labelTitle.Location = new Point(97, 53);
+                labelTitle.Location = new Point(88, 25);
 
-                label_Login.Location = new Point(63, 95);
-                textBoxLogin.Location = new Point(63, 113);
+                label_Login.Location = new Point(63, 70);
+                textBoxLogin.Location = new Point(63, 88);
+                label_error_login.Location = new Point(63, 114);
 
-                label_Password.Location = new Point(63, 145);
-                textBoxPassword.Location = new Point(63, 163);
+                label_Password.Location = new Point(63, 136);
+                textBoxPassword.Location = new Point(63, 154);
+                label_error_pas.Location = new Point(63, 177);
+
                 labelTitle.Text = "SIGN UP";
                 button1.Text = "Sign Up";
                 label1.Text = "Login";
@@ -68,17 +83,24 @@ namespace Metal_plastic_window_cost_calculator
             {
                 label_FullName.Visible = false;
                 textBoxFullName.Visible = false;
+                label_error_fullname.Visible = false;
+
                 label_Email.Visible = false;
                 textBoxEmail.Visible = false;
+                label_error_email.Visible = false;
+
                 checkBoxAdminReg.Visible = false;
 
-                labelTitle.Location = new Point(87, 154);
+                labelTitle.Location = new Point(88, 143);
 
-                label_Login.Location = new Point(63, 193);
-                textBoxLogin.Location = new Point(63, 211);
+                label_Login.Location = new Point(63, 198);
+                textBoxLogin.Location = new Point(63, 216);
+                label_error_login.Location = new Point(63, 240);
 
-                label_Password.Location = new Point(63, 243);
-                textBoxPassword.Location = new Point(63, 261);
+                label_Password.Location = new Point(63, 262);
+                textBoxPassword.Location = new Point(63, 280);
+                label_error_pas.Location = new Point(63, 306);
+
                 labelTitle.Text = "LOG IN";
                 button1.Text = "Log In";
                 label1.Text = "Registration";
@@ -110,5 +132,7 @@ namespace Metal_plastic_window_cost_calculator
         {
             register_validation.Invoke(this, EventArgs.Empty);
         }
+
+        
     }
 }
