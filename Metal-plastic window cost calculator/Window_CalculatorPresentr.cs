@@ -25,6 +25,31 @@ namespace Metal_plastic_window_cost_calculator
             _View.login += new EventHandler<EventArgs>(OnLogin);
             _View.register += new EventHandler<EventArgs>(OnRegister);
             _View.register_validation += new EventHandler<EventArgs>(onValidation);
+            _View.show_materials += new EventHandler<EventArgs>(test);
+            _View.get_material_desc += new EventHandler<EventArgs>(test2);
+        }
+
+        public async void test(object? sender, EventArgs e)
+        {
+            _View.ListView.Items.Clear();
+            var materials = await _repository.GetMaterials();
+            foreach (var material in materials)
+            {
+
+                _View.ListView.Items.Add(
+                 new ListViewItem(new string[] { material.Id.ToString(), material.Category, material.Name, material.Color, material.CostPerMeter.ToString(), material.Description })
+                    );
+            }
+
+        }
+
+        public async void test2(object? sender, EventArgs e)
+        {
+            string str = sender as string;
+            int id = Convert.ToInt32(str);
+            var material = await _repository.GetMaterial(id);
+            _View.LabelDescription = material.Description;
+
         }
 
         public async void onValidation(object? sender, EventArgs e)
@@ -43,7 +68,7 @@ namespace Metal_plastic_window_cost_calculator
             }
             else
             {
-               Check_Login(users);
+                Check_Login(users);
                 //var users_t = users.Where(a => a.Login == _user.Login);
                 //if (users_t.ToList().Count != 0)
                 //{
@@ -104,12 +129,14 @@ namespace Metal_plastic_window_cost_calculator
                 var users_t = users.Where(a => a.Login == _user.Login);
                 if (users_t.ToList().Count != 0)
                 {
-                    _View.LetLogin();
-                    _View.Login = "text";
-                }else _View.LetUserLogin();
+                    _View.show_menu();
+                    //_View.LetLogin();
+                    //_View.Login = "text";
+                }
+                else _View.LetUserLogin();
             }
 
-            
+
         }
     }
 }

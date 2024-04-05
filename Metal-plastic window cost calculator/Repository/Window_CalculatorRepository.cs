@@ -27,6 +27,21 @@ namespace Metal_plastic_window_cost_calculator.Repository
             var users = await _context.UsersTable.ToListAsync();
             return users;
         }
+        public async Task<Materials> GetMaterial(int id)
+        {
+            return await _context.MaterialsTable.FirstOrDefaultAsync(m => m.Id == id);
+        }
+
+        public async Task AddMaterial(Materials materials)
+        {
+            await _context.MaterialsTable.AddAsync(materials);
+        }
+
+        public async Task<List<Materials>> GetMaterials()
+        {
+            var materials = await _context.MaterialsTable.ToListAsync();
+            return materials;
+        }
 
         public async Task Save()
         {

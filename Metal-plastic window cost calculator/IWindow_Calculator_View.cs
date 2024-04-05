@@ -17,10 +17,19 @@ namespace Metal_plastic_window_cost_calculator
       
         string Password { get; set; }
 
+        string LabelDescription { set; }
+        ListView ListView { get; set; }
+        event EventHandler<EventArgs> get_material_desc;
+
+
         event EventHandler<EventArgs> login;
         event EventHandler<EventArgs> register;
         event EventHandler<EventArgs> register_validation;
+        event EventHandler<EventArgs> show_materials;
+
         void LetUserLogin();
         void LetLogin();
+
+        void show_menu();
     }
 }

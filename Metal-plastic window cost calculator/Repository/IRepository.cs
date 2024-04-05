@@ -14,5 +14,12 @@ namespace Metal_plastic_window_cost_calculator.Repository
         Task<List<User>> GetUsers();
 
         Task AddUser(User user);
+
+
+        Task<Materials> GetMaterial(int id);
+
+        Task<List<Materials>> GetMaterials();
+
+        Task AddMaterial(Materials material);
     }
 }
