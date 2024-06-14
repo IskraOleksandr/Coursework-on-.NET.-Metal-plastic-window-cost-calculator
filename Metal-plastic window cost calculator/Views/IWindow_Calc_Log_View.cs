@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Metal_plastic_window_cost_calculator
+namespace Metal_plastic_window_cost_calculator.Views
 {
-    public interface IWindow_Calculator_View
+    public interface IWindow_Calc_Log_View
     {
         string FullName { get; set; }
         string Email { get; set; }
@@ -14,22 +14,16 @@ namespace Metal_plastic_window_cost_calculator
         //
         string Login { get; set; }
         string Error_Login { set; }
-      
-        string Password { get; set; }
 
-        string LabelDescription { set; }
-        ListView ListView { get; set; }
-        event EventHandler<EventArgs> get_material_desc;
+        string Password { get; set; }
 
 
         event EventHandler<EventArgs> login;
         event EventHandler<EventArgs> register;
         event EventHandler<EventArgs> register_validation;
-        event EventHandler<EventArgs> show_materials;
 
         void LetUserLogin();
         void LetLogin();
-
-        void show_menu();
+        void OpenMainForm();
     }
 }

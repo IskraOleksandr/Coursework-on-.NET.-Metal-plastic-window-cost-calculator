@@ -1,7 +1,14 @@
+using Metal_plastic_window_cost_calculator.Models;
+using Metal_plastic_window_cost_calculator.Presenters;
+using Metal_plastic_window_cost_calculator.Repository;
+using Metal_plastic_window_cost_calculator.Views;
+using System.Windows.Forms;
+
 namespace Metal_plastic_window_cost_calculator
 {
-    public partial class Form1 : Form, IWindow_Calculator_View
+    public partial class FormLog : Form, IWindow_Calc_Log_View
     {
+        public FormLog Form_Login { get; set; }
         #region IWindow_Calculator_View Implementation
 
         public string Login { get => textBoxLogin.Text.Trim(); set => textBoxLogin.Text = value; }
@@ -12,8 +19,6 @@ namespace Metal_plastic_window_cost_calculator
         public string Email { get => textBoxEmail.Text.Trim(); set => textBoxEmail.Text = value; }
         public bool IsAdmin { get => checkBoxAdminReg.Checked; set => checkBoxAdminReg.Checked = value; }
 
-        public string LabelDescription { set => label2.Text = value; }
-        public ListView ListView { get => listView1; set => listView1 = value; }
 
         public event EventHandler<EventArgs> login;
         public event EventHandler<EventArgs> register;
@@ -21,16 +26,13 @@ namespace Metal_plastic_window_cost_calculator
         public event EventHandler<EventArgs> login_validation;
 
 
-        public event EventHandler<EventArgs> get_material_desc;
-        public event EventHandler<EventArgs> show_materials;
-
         public void LetUserLogin()
         {
             MessageBox.Show("Wrong user name or/and password.", "Login",
                  MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
         #endregion IWindow_Calculator_View Implementation
-        public Form1()
+        public FormLog()
         {
             InitializeComponent();
             this.Width = 283;
@@ -56,8 +58,6 @@ namespace Metal_plastic_window_cost_calculator
             label_Password.Location = new Point(63, 262);
             textBoxPassword.Location = new Point(63, 280);
             label_error_pas.Location = new Point(63, 306);
-
-            listView1.Visible = false;
         }
 
 
@@ -164,6 +164,23 @@ namespace Metal_plastic_window_cost_calculator
                  MessageBoxButtons.OK, MessageBoxIcon.Question);
         }
 
+        public void OpenMainForm()
+        {
+            Window_CalculatorContext context = new Window_CalculatorContext();
+            Window_CalculatorRepository rep = new(context);
+            Form1 form1 = new Form1()/*(Form1)(Form)this*/;
+            Window_CalculatorPresenter presenter = new Window_CalculatorPresenter(rep, form1);//form
+            //form1.FormClosing += Form1_FormClosing;
+            //Application.Run(form1);
+            form1.Show();//
+            this.Hide();
+        }
+
+        private void Form1_FormClosing(object? sender, FormClosingEventArgs e)
+        {
+            Application.Exit();
+        }
+
         private void textBoxReg_TextChanged(object sender, EventArgs e)
         {
             register_validation.Invoke(this, EventArgs.Empty);
@@ -174,34 +191,6 @@ namespace Metal_plastic_window_cost_calculator
             login_validation.Invoke(this, EventArgs.Empty);
         }
 
-        public void show_menu()
-        {
-            this.Width = 1010;
-            this.Height = 560;
-            labelTitle.Visible = false;
-            label_Login.Visible = false;
-            textBoxLogin.Visible = false;
-            label_Password.Visible = false;
-            textBoxPassword.Visible = false;
-            button1.Visible = false;
-            label7.Visible = false;
-            label1.Visible = false;
-
-            listView1.Visible = true;
-            show_materials.Invoke(this, EventArgs.Empty);
-        }
-
-        private void listView1_ColumnClick(object sender, ColumnClickEventArgs e)
-        {
-            Int32 i = Convert.ToInt32(e.Column.ToString());//
-            MessageBox.Show(listView1.Columns[i].Text);//Admin
-        }
-
-        private void listView1_Click(object sender, EventArgs e)
-        {
-            int index = listView1.FocusedItem.Index;
-            get_material_desc.Invoke(listView1.Items[index].Text, EventArgs.Empty);
-            //MessageBox.Show(listView1.Items[index].Text +"");Admin
-        }
+       
     }
 }
