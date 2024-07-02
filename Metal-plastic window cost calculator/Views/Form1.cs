@@ -8,12 +8,14 @@ namespace Metal_plastic_window_cost_calculator
         #region IWindow_Calculator_View Implementation
 
 
+        public event EventHandler<EventArgs> ShowPetView;
+        public event EventHandler<EventArgs> ShowAdmDbView;
 
-        public string LabelDescription { set => label2.Text = value; }
-        public System.Windows.Forms.ListView ListView { get => listView1; set => listView1 = value; }
+        //public string LabelDescription { set => label2.Text = value; }
+        //public System.Windows.Forms.ListView ListView { get => listView1; set => listView1 = value; }
 
-        public event EventHandler<EventArgs> get_material_desc;
-        public event EventHandler<EventArgs> show_materials;
+        //public event EventHandler<EventArgs> get_material_desc;
+        //public event EventHandler<EventArgs> show_materials;
 
         public void LetUserLogin()
         {
@@ -25,9 +27,9 @@ namespace Metal_plastic_window_cost_calculator
         {
             InitializeComponent();
 
-            this.Hide();//
+            //this.Hide();
             // get_material_desc.Invoke(this, EventArgs.Empty);
-            
+
             //this.Width = 283;
             //this.Height = 443;
             //show_menu();
@@ -37,54 +39,17 @@ namespace Metal_plastic_window_cost_calculator
 
 
 
-
-        //private void button1_Click(object sender, EventArgs e)
-        //{
-        //    Button button = sender as Button;//
-        //    if (button.Text.Trim() == "Log In")
-        //    {
-        //        login.Invoke(this, EventArgs.Empty);
-        //        //show_menu();
-        //    }
-        //    else if (button.Text.Trim() == "Sign Up")
-        //    {
-        //        register.Invoke(this, EventArgs.Empty);
-        //    }
-        //}
-
-
-        //private void textBoxReg_TextChanged(object sender, EventArgs e)
-        //{
-        //    register_validation.Invoke(this, EventArgs.Empty);
-        //}
-
-        //private void textBoxLogin_TextChanged(object sender, EventArgs e)
-        //{
-        //    login_validation.Invoke(this, EventArgs.Empty);
-        //}
-
         public void show_menu()
         {
             this.Width = 1010;
             this.Height = 560;
 
 
-            listView1.Visible = true;
+            //listView1.Visible = true;
             //show_materials.Invoke(this, EventArgs.Empty);
         }
 
-        private void listView1_ColumnClick(object sender, ColumnClickEventArgs e)
-        {
-            Int32 i = Convert.ToInt32(e.Column.ToString());//
-            MessageBox.Show(listView1.Columns[i].Text);//Admin
-        }
-
-        private void listView1_Click(object sender, EventArgs e)
-        {
-            int index = listView1.FocusedItem.Index;
-            get_material_desc.Invoke(listView1.Items[index].Text, EventArgs.Empty);
-            //MessageBox.Show(listView1.Items[index].Text +"");Admin
-        }
+        
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -96,8 +61,66 @@ namespace Metal_plastic_window_cost_calculator
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            foreach (Control c in this.Controls)
+            {
+                if (c is MdiClient)
+                {
+                    c.BackColor = Color.White;
+                    //c.Padding = new Padding(0,0,0,0);
+                }
+            }
             /*show_materials*///
-            show_materials.Invoke(this, EventArgs.Empty);
+            //show_materials.Invoke(this, EventArgs.Empty);
         }
+
+        private void button_Menu_Click(object sender, EventArgs e)
+        {
+            System.Windows.Forms.Button button = sender as System.Windows.Forms.Button;
+
+            if (button.Name == "buttonHome")
+            {
+                buttonHome.BackColor = Color.DodgerBlue;
+
+                buttonMaterials.BackColor = Color.FromArgb(36, 40, 87);
+                buttonEditDb.BackColor = Color.FromArgb(36, 40, 87);
+                buttonWindCalc.BackColor = Color.FromArgb(36, 40, 87);
+
+                // ShowPetView.Invoke(this, EventArgs.Empty);
+            }
+
+            if (button.Name == "buttonWindCalc")
+            {
+                buttonWindCalc.BackColor = Color.DodgerBlue;
+
+                buttonMaterials.BackColor = Color.FromArgb(36, 40, 87);
+                buttonEditDb.BackColor = Color.FromArgb(36, 40, 87);
+                buttonHome.BackColor = Color.FromArgb(36, 40, 87);
+
+                //ShowPetView.Invoke(this, EventArgs.Empty);
+            }
+
+            if (button.Name == "buttonMaterials")
+            {
+                buttonMaterials.BackColor = Color.DodgerBlue;
+
+                buttonEditDb.BackColor = Color.FromArgb(36, 40, 87);
+                buttonHome.BackColor = Color.FromArgb(36, 40, 87);
+                buttonWindCalc.BackColor = Color.FromArgb(36, 40, 87);
+
+                ShowPetView.Invoke(this, EventArgs.Empty);
+            }
+
+            if (button.Name == "buttonEditDb")
+            {
+                buttonEditDb.BackColor = Color.DodgerBlue;
+
+                buttonMaterials.BackColor = Color.FromArgb(36, 40, 87);
+                buttonHome.BackColor = Color.FromArgb(36, 40, 87);
+                buttonWindCalc.BackColor = Color.FromArgb(36, 40, 87);
+
+                ShowAdmDbView.Invoke(this, EventArgs.Empty);
+            }
+        }
+
     }
 }

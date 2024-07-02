@@ -15,10 +15,13 @@ namespace Metal_plastic_window_cost_calculator.Repository
 
         Task AddUser(User user);
 
-
         Task<Materials> GetMaterial(int id);
 
+        List<Materials> SearchMaterial1(string searchIn, string searchValue, string sortOrder, string sortBy);
+
         Task<List<Materials>> GetMaterials();
+
+        IEnumerable<Materials> GetIEnumerableMaterials();
 
         Task AddMaterial(Materials material);
     }

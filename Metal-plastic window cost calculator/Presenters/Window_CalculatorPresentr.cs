@@ -8,51 +8,71 @@ using Metal_plastic_window_cost_calculator.Repository;
 using Metal_plastic_window_cost_calculator.Views;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualBasic.ApplicationServices;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace Metal_plastic_window_cost_calculator.Presenters
 {
-    internal class Window_CalculatorPresenter
+    public class Window_CalculatorPresenter
     {
+        //private IMaterialsView mainView;
         private readonly Models.User _user;
         private readonly IRepository _repository;
         private readonly IWindow_Calculator_View _View;
+        private readonly IAdminView _AdminView;
         //private readonly IWindow_Calc_Log_View _ViewLog;
 
-        public Window_CalculatorPresenter(IRepository context, IWindow_Calculator_View view)
+        public Window_CalculatorPresenter(IRepository context, IWindow_Calculator_View view/*, IAdminView adminView*/)
         {
             //this._user = user;
             _repository = context;
             _View = view;
-
-
+            //_AdminView = adminView;
+            //this.mainView = mainView;
+            _View.ShowPetView += new EventHandler<EventArgs>(ShowMaterialssView);
+            _View.ShowAdmDbView += new EventHandler<EventArgs>(ShowAdminView);
+            
             //_ViewLog.login += new EventHandler<EventArgs>(OnLogin);
             //_ViewLog.register += new EventHandler<EventArgs>(OnRegister);
             //_ViewLog.register_validation += new EventHandler<EventArgs>(onValidation);
-            _View.show_materials += new EventHandler<EventArgs>(test);//test2
-            _View.get_material_desc += new EventHandler<EventArgs>(test2);
+            //_View.show_materials += new EventHandler<EventArgs>(test);//test2
+            //_View.get_material_desc += new EventHandler<EventArgs>(test2);
 
         }
+        private void ShowMaterialssView(object sender, EventArgs e)
+        {
+            IMaterialsView view = Materials_Form.GetInstace((Form1)_View);
+            Window_CalculatorContext context = new Window_CalculatorContext();
+            Window_CalculatorRepository rep = new(context);
+            new MaterialsPresenter(view, rep);//
+        }
 
+        private void ShowAdminView(object sender, EventArgs e)
+        {
+            IAdminView view = (IAdminView)Admin_Form.GetInstace((Form1)_View);
+            Window_CalculatorContext context = new Window_CalculatorContext();
+            Window_CalculatorRepository rep = new(context);
+            new AdminMaterialsPresenter(view, rep);//
+        }
         public async void test(object? sender, EventArgs e)
         {
-            _View.ListView.Items.Clear();
-            var materials = await _repository.GetMaterials();
-            foreach (var material in materials)
-            {
+            //_View.ListView.Items.Clear();
+            //var materials = await _repository.GetMaterials();
+            //foreach (var material in materials)
+            //{
 
-                _View.ListView.Items.Add(
-                 new ListViewItem(new string[] { material.Id.ToString(), material.Category, material.Name, material.Color, material.CostPerMeter.ToString(), material.Description })
-                    );
-            }
+            //    _View.ListView.Items.Add(
+            //     new ListViewItem(new string[] { material.Id.ToString(), material.Category, material.Name, material.Color, material.CostPerMeter.ToString(), material.Description })
+            //        );
+            //}
 
         }
 
         public async void test2(object? sender, EventArgs e)
         {
-            string str = sender as string;
-            int id = Convert.ToInt32(str);
-            var material = await _repository.GetMaterial(id);
-            _View.LabelDescription = material.Description;
+            //string str = sender as string;
+            //int id = Convert.ToInt32(str);
+            //var material = await _repository.GetMaterial(id);
+            //_View.LabelDescription = material.Description;
 
         }
 

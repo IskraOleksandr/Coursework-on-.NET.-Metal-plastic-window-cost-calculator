@@ -2,7 +2,7 @@
 
 namespace Metal_plastic_window_cost_calculator
 {
-    partial class Materials_Form
+    partial class Admin_Form
     {
         /// <summary>
         /// Required designer variable.
@@ -142,13 +142,11 @@ namespace Metal_plastic_window_cost_calculator
             // 
             // comboBox2
             // 
-            comboBox2.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBox2.FormattingEnabled = true;
             comboBox2.Location = new Point(17, 164);
             comboBox2.Name = "comboBox2";
             comboBox2.Size = new Size(210, 23);
             comboBox2.TabIndex = 24;
-            comboBox2.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
             // 
             // label4
             // 
@@ -164,19 +162,17 @@ namespace Metal_plastic_window_cost_calculator
             label5.AutoSize = true;
             label5.Location = new Point(17, 144);
             label5.Name = "label5";
-            label5.Size = new Size(59, 15);
+            label5.Size = new Size(61, 15);
             label5.TabIndex = 23;
-            label5.Text = "Order by: ";
+            label5.Text = "Search in: ";
             // 
             // comboBox1
             // 
-            comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBox1.FormattingEnabled = true;
             comboBox1.Location = new Point(17, 96);
             comboBox1.Name = "comboBox1";
             comboBox1.Size = new Size(210, 23);
             comboBox1.TabIndex = 22;
-            comboBox1.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
             // 
             // dataGridView1
             // 
@@ -194,7 +190,6 @@ namespace Metal_plastic_window_cost_calculator
             dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridView1.Size = new Size(673, 484);
             dataGridView1.TabIndex = 31;
-            dataGridView1.CellClick += dataGridView1_CellClick;
             // 
             // Materials_Form
             // 
@@ -205,7 +200,6 @@ namespace Metal_plastic_window_cost_calculator
             Controls.Add(groupBox1);
             Name = "Materials_Form";
             Text = "Form2";
-            Load += Materials_Form_Load;
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();

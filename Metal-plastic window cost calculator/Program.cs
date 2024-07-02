@@ -27,7 +27,8 @@ namespace Metal_plastic_window_cost_calculator
             Window_CalcPresenter pres = new Window_CalcPresenter(us, rep, log);//form
             
             Form1 form = new Form1();
-            Window_CalculatorPresenter presenter = new Window_CalculatorPresenter(/*us,*/ rep, form);//form
+            Admin_Form admin_Form = new Admin_Form();
+            Window_CalculatorPresenter presenter = new Window_CalculatorPresenter(/*us,*/ rep, form/*, admin_Form*/);//form
 
             log.Show();
             //form.Show();
