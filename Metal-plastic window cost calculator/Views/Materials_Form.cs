@@ -22,7 +22,9 @@ namespace Metal_plastic_window_cost_calculator
         public event EventHandler<EventArgs> SearchEvent;
         public event EventHandler<EventArgs> get_material_desc;
         public event EventHandler<EventArgs> load_combobox_items;
+        public event EventHandler<EventArgs> SortEvent;
 
+        public bool IsASC { get; set; }
         public string LabelDescription { set => label2.Text = value; }
         public object SearchIn { get => comboBox1.SelectedItem; }
         public object OrderBy { get => comboBox2.SelectedItem; }
@@ -57,9 +59,9 @@ namespace Metal_plastic_window_cost_calculator
 
         public void SetMaterialsListBindingSource(BindingSource mList)
         {
-            dataGridView1.DataSource = mList;
-            //listView1.Dats = mList;
+            dataGridView1.DataSource = mList; 
         }
+
 
         public void Add_To_List(ListViewItem value)
         {
@@ -74,6 +76,9 @@ namespace Metal_plastic_window_cost_calculator
             comboBox2.DisplayMember = "Text";
             comboBox1.ValueMember = "Id";
             comboBox2.ValueMember = "Id";
+
+            comboBox1.SelectedIndex = 0;
+            comboBox2.SelectedIndex = 0;
         }
 
         public void SetComboBox2Items(List<ComboBoxItem> items)
@@ -104,7 +109,29 @@ namespace Metal_plastic_window_cost_calculator
 
         private void button1_Click(object sender, EventArgs e)
         {
-            SearchEvent.Invoke(this, EventArgs.Empty);
+            System.Windows.Forms.Button button = sender as System.Windows.Forms.Button;
+            if (button.Name == "buttonSearch")
+            {
+                SearchEvent.Invoke(this, EventArgs.Empty);
+            }
+
+            if (button.Name == "buttonASC" && button.BackColor == Color.WhiteSmoke)
+            {
+                button.BackColor = Color.DodgerBlue;
+                buttonDESC.BackColor = Color.WhiteSmoke;
+                SortEvent.Invoke(this, EventArgs.Empty);
+                IsASC = true;
+            }
+
+            if (button.Name == "buttonDESC" && button.BackColor == Color.WhiteSmoke)
+            {
+                button.BackColor = Color.DodgerBlue;
+                buttonASC.BackColor = Color.WhiteSmoke;
+                SortEvent.Invoke(this, EventArgs.Empty);
+                IsASC = false;
+            }
+
+
         }
 
         private void Materials_Form_Load(object sender, EventArgs e)
@@ -114,17 +141,22 @@ namespace Metal_plastic_window_cost_calculator
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            System.Windows.Forms.ComboBox box = sender as System.Windows.Forms.ComboBox;
+            //System.Windows.Forms.ComboBox box = sender as System.Windows.Forms.ComboBox;
 
-            if(box.Name == "comboBox1")
-            {
-                SearchEvent.Invoke(this, EventArgs.Empty);
-            }
-            
-            if (box.Name == "comboBox2")
-            {
-                SearchEvent.Invoke(this, EventArgs.Empty);
-            }
+            //if (box.Name == "comboBox1")
+            //{
+            //    SearchEvent.Invoke(this, EventArgs.Empty);
+            //}
+
+            //if (box.Name == "comboBox2")
+            //{
+            //    SearchEvent.Invoke(this, EventArgs.Empty);
+            //}
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            SearchEvent.Invoke(this, EventArgs.Empty);
         }
     }
 }

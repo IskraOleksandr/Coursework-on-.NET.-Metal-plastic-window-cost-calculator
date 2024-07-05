@@ -43,15 +43,15 @@ namespace Metal_plastic_window_cost_calculator.Presenters
             IMaterialsView view = Materials_Form.GetInstace((Form1)_View);
             Window_CalculatorContext context = new Window_CalculatorContext();
             Window_CalculatorRepository rep = new(context);
-            new MaterialsPresenter(view, rep);//
+            new MaterialsPresenter(view, context);//
         }
 
         private void ShowAdminView(object sender, EventArgs e)
         {
-            IAdminView view = (IAdminView)Admin_Form.GetInstace((Form1)_View);
+            IAdminView view = Admin_Form.GetInstace((Form1)_View);
             Window_CalculatorContext context = new Window_CalculatorContext();
             Window_CalculatorRepository rep = new(context);
-            new AdminMaterialsPresenter(view, rep);//
+            new AdminMaterialsPresenter(view, context);//
         }
         public async void test(object? sender, EventArgs e)
         {

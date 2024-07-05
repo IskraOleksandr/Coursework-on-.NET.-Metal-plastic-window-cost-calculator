@@ -66,11 +66,8 @@ namespace Metal_plastic_window_cost_calculator
                 if (c is MdiClient)
                 {
                     c.BackColor = Color.White;
-                    //c.Padding = new Padding(0,0,0,0);
                 }
             }
-            /*show_materials*///
-            //show_materials.Invoke(this, EventArgs.Empty);
         }
 
         private void button_Menu_Click(object sender, EventArgs e)
@@ -80,44 +77,34 @@ namespace Metal_plastic_window_cost_calculator
             if (button.Name == "buttonHome")
             {
                 buttonHome.BackColor = Color.DodgerBlue;
-
                 buttonMaterials.BackColor = Color.FromArgb(36, 40, 87);
                 buttonEditDb.BackColor = Color.FromArgb(36, 40, 87);
                 buttonWindCalc.BackColor = Color.FromArgb(36, 40, 87);
-
-                // ShowPetView.Invoke(this, EventArgs.Empty);
             }
 
             if (button.Name == "buttonWindCalc")
             {
                 buttonWindCalc.BackColor = Color.DodgerBlue;
-
                 buttonMaterials.BackColor = Color.FromArgb(36, 40, 87);
                 buttonEditDb.BackColor = Color.FromArgb(36, 40, 87);
                 buttonHome.BackColor = Color.FromArgb(36, 40, 87);
-
-                //ShowPetView.Invoke(this, EventArgs.Empty);
             }
 
             if (button.Name == "buttonMaterials")
             {
                 buttonMaterials.BackColor = Color.DodgerBlue;
-
                 buttonEditDb.BackColor = Color.FromArgb(36, 40, 87);
                 buttonHome.BackColor = Color.FromArgb(36, 40, 87);
                 buttonWindCalc.BackColor = Color.FromArgb(36, 40, 87);
-
                 ShowPetView.Invoke(this, EventArgs.Empty);
             }
 
             if (button.Name == "buttonEditDb")
             {
                 buttonEditDb.BackColor = Color.DodgerBlue;
-
                 buttonMaterials.BackColor = Color.FromArgb(36, 40, 87);
                 buttonHome.BackColor = Color.FromArgb(36, 40, 87);
                 buttonWindCalc.BackColor = Color.FromArgb(36, 40, 87);
-
                 ShowAdmDbView.Invoke(this, EventArgs.Empty);
             }
         }

@@ -31,11 +31,11 @@ namespace Metal_plastic_window_cost_calculator
         private void InitializeComponent()
         {
             groupBox1 = new GroupBox();
-            button1 = new Button();
+            buttonSearch = new Button();
             label3 = new Label();
-            button3 = new Button();
+            buttonDESC = new Button();
             label2 = new Label();
-            button2 = new Button();
+            buttonASC = new Button();
             textBox1 = new TextBox();
             comboBox2 = new ComboBox();
             label4 = new Label();
@@ -49,11 +49,11 @@ namespace Metal_plastic_window_cost_calculator
             // 
             // groupBox1
             // 
-            groupBox1.Controls.Add(button1);
+            groupBox1.Controls.Add(buttonSearch);
             groupBox1.Controls.Add(label3);
-            groupBox1.Controls.Add(button3);
+            groupBox1.Controls.Add(buttonDESC);
             groupBox1.Controls.Add(label2);
-            groupBox1.Controls.Add(button2);
+            groupBox1.Controls.Add(buttonASC);
             groupBox1.Controls.Add(textBox1);
             groupBox1.Controls.Add(comboBox2);
             groupBox1.Controls.Add(label4);
@@ -66,22 +66,22 @@ namespace Metal_plastic_window_cost_calculator
             groupBox1.TabIndex = 30;
             groupBox1.TabStop = false;
             // 
-            // button1
+            // buttonSearch
             // 
-            button1.BackColor = Color.DodgerBlue;
-            button1.BackgroundImageLayout = ImageLayout.Zoom;
-            button1.Cursor = Cursors.Hand;
-            button1.FlatAppearance.BorderColor = Color.Black;
-            button1.FlatAppearance.BorderSize = 0;
-            button1.FlatStyle = FlatStyle.Flat;
-            button1.Image = Properties.Resources.icons8_search_24;
-            button1.Location = new Point(197, 28);
-            button1.Name = "button1";
-            button1.Size = new Size(38, 32);
-            button1.TabIndex = 27;
-            button1.Tag = "DESC";
-            button1.UseVisualStyleBackColor = false;
-            button1.Click += button1_Click;
+            buttonSearch.BackColor = Color.DodgerBlue;
+            buttonSearch.BackgroundImageLayout = ImageLayout.Zoom;
+            buttonSearch.Cursor = Cursors.Hand;
+            buttonSearch.FlatAppearance.BorderColor = Color.Black;
+            buttonSearch.FlatAppearance.BorderSize = 0;
+            buttonSearch.FlatStyle = FlatStyle.Flat;
+            buttonSearch.Image = Properties.Resources.icons8_search_24;
+            buttonSearch.Location = new Point(197, 28);
+            buttonSearch.Name = "buttonSearch";
+            buttonSearch.Size = new Size(38, 32);
+            buttonSearch.TabIndex = 27;
+            buttonSearch.Tag = "DESC";
+            buttonSearch.UseVisualStyleBackColor = false;
+            buttonSearch.Click += button1_Click;
             // 
             // label3
             // 
@@ -92,21 +92,22 @@ namespace Metal_plastic_window_cost_calculator
             label3.TabIndex = 20;
             label3.Text = "Search: ";
             // 
-            // button3
+            // buttonDESC
             // 
-            button3.BackColor = Color.WhiteSmoke;
-            button3.BackgroundImageLayout = ImageLayout.Zoom;
-            button3.Cursor = Cursors.Hand;
-            button3.FlatAppearance.BorderColor = Color.Black;
-            button3.FlatAppearance.BorderSize = 0;
-            button3.FlatStyle = FlatStyle.Flat;
-            button3.Image = Properties.Resources.DESCB24;
-            button3.Location = new Point(71, 220);
-            button3.Name = "button3";
-            button3.Size = new Size(38, 38);
-            button3.TabIndex = 26;
-            button3.Tag = "DESC";
-            button3.UseVisualStyleBackColor = false;
+            buttonDESC.BackColor = Color.WhiteSmoke;
+            buttonDESC.BackgroundImageLayout = ImageLayout.Zoom;
+            buttonDESC.Cursor = Cursors.Hand;
+            buttonDESC.FlatAppearance.BorderColor = Color.Black;
+            buttonDESC.FlatAppearance.BorderSize = 0;
+            buttonDESC.FlatStyle = FlatStyle.Flat;
+            buttonDESC.Image = Properties.Resources.DESCB24;
+            buttonDESC.Location = new Point(71, 220);
+            buttonDESC.Name = "buttonDESC";
+            buttonDESC.Size = new Size(38, 38);
+            buttonDESC.TabIndex = 26;
+            buttonDESC.Tag = "DESC";
+            buttonDESC.UseVisualStyleBackColor = false;
+            buttonDESC.Click += button1_Click;
             // 
             // label2
             // 
@@ -114,24 +115,24 @@ namespace Metal_plastic_window_cost_calculator
             label2.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 204);
             label2.Location = new Point(22, 294);
             label2.Name = "label2";
-            label2.Size = new Size(43, 17);
+            label2.Size = new Size(0, 17);
             label2.TabIndex = 18;
-            label2.Text = "label2";
             // 
-            // button2
+            // buttonASC
             // 
-            button2.BackColor = Color.DodgerBlue;
-            button2.BackgroundImageLayout = ImageLayout.Zoom;
-            button2.Cursor = Cursors.Hand;
-            button2.FlatAppearance.BorderSize = 0;
-            button2.FlatStyle = FlatStyle.Flat;
-            button2.Image = Properties.Resources.ASCB24;
-            button2.Location = new Point(19, 220);
-            button2.Name = "button2";
-            button2.Size = new Size(38, 38);
-            button2.TabIndex = 25;
-            button2.Tag = "ASC";
-            button2.UseVisualStyleBackColor = false;
+            buttonASC.BackColor = Color.DodgerBlue;
+            buttonASC.BackgroundImageLayout = ImageLayout.Zoom;
+            buttonASC.Cursor = Cursors.Hand;
+            buttonASC.FlatAppearance.BorderSize = 0;
+            buttonASC.FlatStyle = FlatStyle.Flat;
+            buttonASC.Image = Properties.Resources.ASCB24;
+            buttonASC.Location = new Point(19, 220);
+            buttonASC.Name = "buttonASC";
+            buttonASC.Size = new Size(38, 38);
+            buttonASC.TabIndex = 25;
+            buttonASC.Tag = "ASC";
+            buttonASC.UseVisualStyleBackColor = false;
+            buttonASC.Click += button1_Click;
             // 
             // textBox1
             // 
@@ -139,6 +140,7 @@ namespace Metal_plastic_window_cost_calculator
             textBox1.Name = "textBox1";
             textBox1.Size = new Size(174, 23);
             textBox1.TabIndex = 19;
+            textBox1.TextChanged += textBox1_TextChanged;
             // 
             // comboBox2
             // 
@@ -214,11 +216,11 @@ namespace Metal_plastic_window_cost_calculator
 
         #endregion
         private GroupBox groupBox1;
-        private Button button1;
+        private Button buttonSearch;
         private Label label3;
-        private Button button3;
+        private Button buttonDESC;
         private Label label2;
-        private Button button2;
+        private Button buttonASC;
         private TextBox textBox1;
         private ComboBox comboBox2;
         private Label label4;

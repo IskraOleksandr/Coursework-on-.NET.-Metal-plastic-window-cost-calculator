@@ -8,6 +8,7 @@ namespace Metal_plastic_window_cost_calculator.Views
 {
     public interface IMaterialsView
     {
+        bool IsASC { get; set; }
         string SearchValue { get;}//
         object SearchIn { get; }//
         object OrderBy { get; }//
@@ -19,6 +20,7 @@ namespace Metal_plastic_window_cost_calculator.Views
         event EventHandler<EventArgs> get_material_desc;
 
         event EventHandler<EventArgs> load_combobox_items;//
+        event EventHandler<EventArgs> SortEvent;//
 
         //Methods
         void SetMaterialsListBindingSource(BindingSource petList);
