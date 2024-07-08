@@ -31,6 +31,9 @@ namespace Metal_plastic_window_cost_calculator
         private void InitializeComponent()
         {
             groupBox1 = new GroupBox();
+            buttonDel = new Button();
+            buttonEdit = new Button();
+            buttonAdd = new Button();
             label1 = new Label();
             comboBox3 = new ComboBox();
             button1 = new Button();
@@ -44,9 +47,6 @@ namespace Metal_plastic_window_cost_calculator
             comboBox1 = new ComboBox();
             columnHeader6 = new ColumnHeader();
             dataGridView1 = new DataGridView();
-            buttonAdd = new Button();
-            buttonEdit = new Button();
-            buttonDel = new Button();
             groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
@@ -73,6 +73,47 @@ namespace Metal_plastic_window_cost_calculator
             groupBox1.Size = new Size(248, 484);
             groupBox1.TabIndex = 30;
             groupBox1.TabStop = false;
+            // 
+            // buttonDel
+            // 
+            buttonDel.BackColor = Color.Red;
+            buttonDel.FlatAppearance.BorderSize = 0;
+            buttonDel.FlatStyle = FlatStyle.Flat;
+            buttonDel.ForeColor = Color.White;
+            buttonDel.Location = new Point(18, 383);
+            buttonDel.Name = "buttonDel";
+            buttonDel.Size = new Size(209, 38);
+            buttonDel.TabIndex = 32;
+            buttonDel.Text = "Delete";
+            buttonDel.UseVisualStyleBackColor = false;
+            // 
+            // buttonEdit
+            // 
+            buttonEdit.BackColor = Color.Goldenrod;
+            buttonEdit.FlatAppearance.BorderSize = 0;
+            buttonEdit.FlatStyle = FlatStyle.Flat;
+            buttonEdit.ForeColor = Color.White;
+            buttonEdit.Location = new Point(18, 339);
+            buttonEdit.Name = "buttonEdit";
+            buttonEdit.Size = new Size(209, 38);
+            buttonEdit.TabIndex = 31;
+            buttonEdit.Text = "Edit";
+            buttonEdit.UseVisualStyleBackColor = false;
+            buttonEdit.Click += button1_Click;
+            // 
+            // buttonAdd
+            // 
+            buttonAdd.BackColor = Color.Green;
+            buttonAdd.FlatAppearance.BorderSize = 0;
+            buttonAdd.FlatStyle = FlatStyle.Flat;
+            buttonAdd.ForeColor = Color.White;
+            buttonAdd.Location = new Point(18, 295);
+            buttonAdd.Name = "buttonAdd";
+            buttonAdd.Size = new Size(209, 38);
+            buttonAdd.TabIndex = 30;
+            buttonAdd.Text = "Add";
+            buttonAdd.UseVisualStyleBackColor = false;
+            buttonAdd.Click += button1_Click;
             // 
             // label1
             // 
@@ -212,45 +253,6 @@ namespace Metal_plastic_window_cost_calculator
             dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridView1.Size = new Size(673, 484);
             dataGridView1.TabIndex = 31;
-            // 
-            // buttonAdd
-            // 
-            buttonAdd.BackColor = Color.Green;
-            buttonAdd.FlatAppearance.BorderSize = 0;
-            buttonAdd.FlatStyle = FlatStyle.Flat;
-            buttonAdd.ForeColor = Color.White;
-            buttonAdd.Location = new Point(18, 295);
-            buttonAdd.Name = "buttonAdd";
-            buttonAdd.Size = new Size(209, 38);
-            buttonAdd.TabIndex = 30;
-            buttonAdd.Text = "Add";
-            buttonAdd.UseVisualStyleBackColor = false;
-            // 
-            // buttonEdit
-            // 
-            buttonEdit.BackColor = Color.Goldenrod;
-            buttonEdit.FlatAppearance.BorderSize = 0;
-            buttonEdit.FlatStyle = FlatStyle.Flat;
-            buttonEdit.ForeColor = Color.White;
-            buttonEdit.Location = new Point(18, 339);
-            buttonEdit.Name = "buttonEdit";
-            buttonEdit.Size = new Size(209, 38);
-            buttonEdit.TabIndex = 31;
-            buttonEdit.Text = "Edit";
-            buttonEdit.UseVisualStyleBackColor = false;
-            // 
-            // buttonDel
-            // 
-            buttonDel.BackColor = Color.Red;
-            buttonDel.FlatAppearance.BorderSize = 0;
-            buttonDel.FlatStyle = FlatStyle.Flat;
-            buttonDel.ForeColor = Color.White;
-            buttonDel.Location = new Point(18, 383);
-            buttonDel.Name = "buttonDel";
-            buttonDel.Size = new Size(209, 38);
-            buttonDel.TabIndex = 32;
-            buttonDel.Text = "Delete";
-            buttonDel.UseVisualStyleBackColor = false;
             // 
             // Admin_Form
             // 

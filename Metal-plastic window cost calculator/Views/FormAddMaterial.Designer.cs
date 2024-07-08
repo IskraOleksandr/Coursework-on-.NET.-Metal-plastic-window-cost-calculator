@@ -28,77 +28,80 @@
         /// </summary>
         private void InitializeComponent()
         {
-            label_error_email = new Label();
-            label_error_fullname = new Label();
-            label_error_pas = new Label();
-            label_error_login = new Label();
-            textBoxLogin = new TextBox();
-            textBoxPassword = new TextBox();
+            label_error_cost = new Label();
+            label_error_color = new Label();
+            label_error_name = new Label();
+            label_error_category = new Label();
+            textBoxCategory = new TextBox();
+            textBoxName = new TextBox();
             label_Category = new Label();
             label_Name = new Label();
             labelTitle = new Label();
             label_CostPerMetr = new Label();
-            textBoxEmail = new TextBox();
             label_Color = new Label();
-            textBoxFullName = new TextBox();
+            textBoxColor = new TextBox();
             buttonAdd = new Button();
-            label1 = new Label();
+            label_error_description = new Label();
             label_Description = new Label();
-            textBox1 = new TextBox();
+            textBoxDescription = new TextBox();
+            numericCostPerMetr = new NumericUpDown();
+            ((System.ComponentModel.ISupportInitialize)numericCostPerMetr).BeginInit();
             SuspendLayout();
             // 
-            // label_error_email
+            // label_error_cost
             // 
-            label_error_email.AutoSize = true;
-            label_error_email.ForeColor = Color.Red;
-            label_error_email.Location = new Point(45, 289);
-            label_error_email.Name = "label_error_email";
-            label_error_email.Size = new Size(0, 15);
-            label_error_email.TabIndex = 31;
+            label_error_cost.AutoSize = true;
+            label_error_cost.ForeColor = Color.Red;
+            label_error_cost.Location = new Point(45, 289);
+            label_error_cost.Name = "label_error_cost";
+            label_error_cost.Size = new Size(0, 15);
+            label_error_cost.TabIndex = 31;
             // 
-            // label_error_fullname
+            // label_error_color
             // 
-            label_error_fullname.AutoSize = true;
-            label_error_fullname.ForeColor = Color.Red;
-            label_error_fullname.Location = new Point(45, 223);
-            label_error_fullname.Name = "label_error_fullname";
-            label_error_fullname.Size = new Size(0, 15);
-            label_error_fullname.TabIndex = 30;
+            label_error_color.AutoSize = true;
+            label_error_color.ForeColor = Color.Red;
+            label_error_color.Location = new Point(45, 223);
+            label_error_color.Name = "label_error_color";
+            label_error_color.Size = new Size(0, 15);
+            label_error_color.TabIndex = 30;
             // 
-            // label_error_pas
+            // label_error_name
             // 
-            label_error_pas.AutoSize = true;
-            label_error_pas.ForeColor = Color.Red;
-            label_error_pas.Location = new Point(45, 160);
-            label_error_pas.Name = "label_error_pas";
-            label_error_pas.Size = new Size(0, 15);
-            label_error_pas.TabIndex = 29;
+            label_error_name.AutoSize = true;
+            label_error_name.ForeColor = Color.Red;
+            label_error_name.Location = new Point(45, 160);
+            label_error_name.Name = "label_error_name";
+            label_error_name.Size = new Size(0, 15);
+            label_error_name.TabIndex = 29;
             // 
-            // label_error_login
+            // label_error_category
             // 
-            label_error_login.AutoSize = true;
-            label_error_login.ForeColor = Color.Red;
-            label_error_login.Location = new Point(45, 97);
-            label_error_login.Name = "label_error_login";
-            label_error_login.Size = new Size(0, 15);
-            label_error_login.TabIndex = 28;
+            label_error_category.AutoSize = true;
+            label_error_category.ForeColor = Color.Red;
+            label_error_category.Location = new Point(45, 97);
+            label_error_category.Name = "label_error_category";
+            label_error_category.Size = new Size(0, 15);
+            label_error_category.TabIndex = 28;
             // 
-            // textBoxLogin
+            // textBoxCategory
             // 
-            textBoxLogin.Cursor = Cursors.IBeam;
-            textBoxLogin.Location = new Point(45, 71);
-            textBoxLogin.Name = "textBoxLogin";
-            textBoxLogin.Size = new Size(188, 23);
-            textBoxLogin.TabIndex = 17;
+            textBoxCategory.Cursor = Cursors.IBeam;
+            textBoxCategory.Location = new Point(45, 71);
+            textBoxCategory.Name = "textBoxCategory";
+            textBoxCategory.Size = new Size(188, 23);
+            textBoxCategory.TabIndex = 17;
+            textBoxCategory.TextChanged += textBoxCategory_TextChanged;
             // 
-            // textBoxPassword
+            // textBoxName
             // 
-            textBoxPassword.Location = new Point(45, 137);
-            textBoxPassword.Name = "textBoxPassword";
-            textBoxPassword.PasswordChar = '*';
-            textBoxPassword.Size = new Size(188, 23);
-            textBoxPassword.TabIndex = 19;
-            textBoxPassword.UseSystemPasswordChar = true;
+            textBoxName.Location = new Point(45, 137);
+            textBoxName.Name = "textBoxName";
+            textBoxName.PasswordChar = '*';
+            textBoxName.Size = new Size(188, 23);
+            textBoxName.TabIndex = 19;
+            textBoxName.UseSystemPasswordChar = true;
+            textBoxName.TextChanged += textBoxCategory_TextChanged;
             // 
             // label_Category
             // 
@@ -137,13 +140,6 @@
             label_CostPerMetr.TabIndex = 25;
             label_CostPerMetr.Text = "CostPerMetr:";
             // 
-            // textBoxEmail
-            // 
-            textBoxEmail.Location = new Point(45, 263);
-            textBoxEmail.Name = "textBoxEmail";
-            textBoxEmail.Size = new Size(188, 23);
-            textBoxEmail.TabIndex = 24;
-            // 
             // label_Color
             // 
             label_Color.AutoSize = true;
@@ -153,12 +149,13 @@
             label_Color.TabIndex = 23;
             label_Color.Text = "Color:";
             // 
-            // textBoxFullName
+            // textBoxColor
             // 
-            textBoxFullName.Location = new Point(45, 199);
-            textBoxFullName.Name = "textBoxFullName";
-            textBoxFullName.Size = new Size(188, 23);
-            textBoxFullName.TabIndex = 22;
+            textBoxColor.Location = new Point(45, 199);
+            textBoxColor.Name = "textBoxColor";
+            textBoxColor.Size = new Size(188, 23);
+            textBoxColor.TabIndex = 22;
+            textBoxColor.TextChanged += textBoxCategory_TextChanged;
             // 
             // buttonAdd
             // 
@@ -167,21 +164,22 @@
             buttonAdd.FlatStyle = FlatStyle.Flat;
             buttonAdd.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 204);
             buttonAdd.ForeColor = Color.White;
-            buttonAdd.Location = new Point(94, 396);
+            buttonAdd.Location = new Point(97, 420);
             buttonAdd.Name = "buttonAdd";
             buttonAdd.Size = new Size(75, 27);
             buttonAdd.TabIndex = 18;
             buttonAdd.Text = "Add";
             buttonAdd.UseVisualStyleBackColor = false;
+            buttonAdd.Click += buttonAdd_Click;
             // 
-            // label1
+            // label_error_description
             // 
-            label1.AutoSize = true;
-            label1.ForeColor = Color.Red;
-            label1.Location = new Point(45, 348);
-            label1.Name = "label1";
-            label1.Size = new Size(0, 15);
-            label1.TabIndex = 34;
+            label_error_description.AutoSize = true;
+            label_error_description.ForeColor = Color.Red;
+            label_error_description.Location = new Point(45, 386);
+            label_error_description.Name = "label_error_description";
+            label_error_description.Size = new Size(0, 15);
+            label_error_description.TabIndex = 34;
             // 
             // label_Description
             // 
@@ -192,63 +190,76 @@
             label_Description.TabIndex = 33;
             label_Description.Text = "Description:";
             // 
-            // textBox1
+            // textBoxDescription
             // 
-            textBox1.Cursor = Cursors.IBeam;
-            textBox1.Location = new Point(45, 322);
-            textBox1.Multiline = true;
-            textBox1.Name = "textBox1";
-            textBox1.ScrollBars = ScrollBars.Vertical;
-            textBox1.Size = new Size(188, 61);
-            textBox1.TabIndex = 32;
+            textBoxDescription.Cursor = Cursors.IBeam;
+            textBoxDescription.Location = new Point(45, 322);
+            textBoxDescription.Multiline = true;
+            textBoxDescription.Name = "textBoxDescription";
+            textBoxDescription.ScrollBars = ScrollBars.Vertical;
+            textBoxDescription.Size = new Size(188, 61);
+            textBoxDescription.TabIndex = 32;
+            textBoxDescription.TextChanged += textBoxCategory_TextChanged;
+            // 
+            // numericCostPerMetr
+            // 
+            numericCostPerMetr.InterceptArrowKeys = false;
+            numericCostPerMetr.Location = new Point(45, 263);
+            numericCostPerMetr.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
+            numericCostPerMetr.Name = "numericCostPerMetr";
+            numericCostPerMetr.Size = new Size(188, 23);
+            numericCostPerMetr.TabIndex = 35;
+            numericCostPerMetr.ValueChanged += textBoxCategory_TextChanged;
             // 
             // FormAddMaterial
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(283, 435);
-            Controls.Add(label1);
-            Controls.Add(textBox1);
+            ClientSize = new Size(283, 459);
+            Controls.Add(numericCostPerMetr);
+            Controls.Add(label_error_description);
+            Controls.Add(textBoxDescription);
             Controls.Add(label_Description);
-            Controls.Add(label_error_email);
-            Controls.Add(label_error_fullname);
-            Controls.Add(label_error_pas);
-            Controls.Add(label_error_login);
-            Controls.Add(textBoxLogin);
-            Controls.Add(textBoxPassword);
+            Controls.Add(label_error_cost);
+            Controls.Add(label_error_color);
+            Controls.Add(label_error_name);
+            Controls.Add(label_error_category);
+            Controls.Add(textBoxCategory);
+            Controls.Add(textBoxName);
             Controls.Add(label_Category);
             Controls.Add(label_Name);
             Controls.Add(labelTitle);
             Controls.Add(label_CostPerMetr);
-            Controls.Add(textBoxEmail);
             Controls.Add(label_Color);
-            Controls.Add(textBoxFullName);
+            Controls.Add(textBoxColor);
             Controls.Add(buttonAdd);
             FormBorderStyle = FormBorderStyle.FixedToolWindow;
             Name = "FormAddMaterial";
             Text = "Add new material";
+            ((System.ComponentModel.ISupportInitialize)numericCostPerMetr).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
 
-        private Label label_error_email;
-        private Label label_error_fullname;
-        private Label label_error_pas;
-        private Label label_error_login;
-        private TextBox textBoxLogin;
-        private TextBox textBoxPassword;
+        private Label label_error_cost;
+        private Label label_error_color;
+        private Label label_error_name;
+        private Label label_error_category;
+        private TextBox textBoxCategory;
+        private TextBox textBoxName;
         private Label label_Category;
         private Label label_Name;
         private Label labelTitle;
         private Label label_CostPerMetr;
-        private TextBox textBoxEmail;
+        private TextBox textBoxCostPerMetr;
         private Label label_Color;
-        private TextBox textBoxFullName;
+        private TextBox textBoxColor;
         private Button buttonAdd;
-        private Label label1;
+        private Label label_error_description;
         private Label label_Description;
-        private TextBox textBox1;
+        private TextBox textBoxDescription;
+        private NumericUpDown numericCostPerMetr;
     }
 }

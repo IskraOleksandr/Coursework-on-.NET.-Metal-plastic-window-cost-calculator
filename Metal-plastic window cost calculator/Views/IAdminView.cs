@@ -25,6 +25,8 @@ namespace Metal_plastic_window_cost_calculator.Views
         event EventHandler<EventArgs> change_table;
         event EventHandler<EventArgs> SortEvent;//
 
+
+        event EventHandler<EventArgs> editMEvent;//
         //Methods
         void SetMaterialsListBindingSource(BindingSource petList);
         void Add_To_List(ListViewItem value);

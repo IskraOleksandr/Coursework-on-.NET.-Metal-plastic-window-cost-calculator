@@ -1,4 +1,7 @@
-﻿using Metal_plastic_window_cost_calculator.Views;
+﻿using Metal_plastic_window_cost_calculator.Models;
+using Metal_plastic_window_cost_calculator.Presenters;
+using Metal_plastic_window_cost_calculator.Repository;
+using Metal_plastic_window_cost_calculator.Views;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -22,6 +25,7 @@ namespace Metal_plastic_window_cost_calculator
         public event EventHandler<EventArgs> load_combobox_items;
         public event EventHandler<EventArgs> SortEvent;
         public event EventHandler<EventArgs> change_table;
+        public event EventHandler<EventArgs> editMEvent;
 
         public bool IsASC { get; set; }
         public string LabelDescription { set; get; }
@@ -29,9 +33,45 @@ namespace Metal_plastic_window_cost_calculator
         public object SearchIn { get => comboBox1.SelectedItem; }
         public object OrderBy { get => comboBox2.SelectedItem; }
         public string SearchValue { get => textBox1.Text; }
+
         public Admin_Form()
         {
             InitializeComponent();
+        }
+
+        public void OpenAddMatForm()
+        {
+            Window_CalculatorContext context = new Window_CalculatorContext();
+            Window_CalculatorRepository rep = new(context);
+            FormAddMaterial form1 = new FormAddMaterial();
+            CRUD_Presenter presenter = new CRUD_Presenter(form1, context);//form
+
+            if (form1.ShowDialog() == DialogResult.OK)
+            {
+                //MessageBox.Show("Ok, got you.", "Welcome", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                get_material_desc.Invoke(this, EventArgs.Empty);
+            }
+        }
+
+        public void OpenEditMatForm()
+        {
+            Window_CalculatorContext context = new Window_CalculatorContext();
+            Window_CalculatorRepository rep = new(context);
+            
+            DataGridViewRow row = this.dataGridView1.SelectedRows[0];
+            FormAddMaterial form1 = new FormAddMaterial(true);
+            //form1.Category
+            CRUD_Presenter presenter = new CRUD_Presenter(form1, context);//form
+
+            if (form1.ShowDialog() == DialogResult.OK)
+            {
+                if (dataGridView1.SelectedRows.Count != 0)
+                {
+                    
+                    get_material_desc.Invoke(row, EventArgs.Empty);
+                }
+                //get_material_desc.Invoke(this, EventArgs.Empty);
+            }
         }
 
         public static Admin_Form GetInstace(Form parentContainer)
@@ -129,7 +169,21 @@ namespace Metal_plastic_window_cost_calculator
                 IsASC = false;
             }
 
-
+            if (button.Name == "buttonAdd")
+            {
+                OpenAddMatForm();
+                //SortEvent.Invoke(this, EventArgs.Empty);
+            }
+            if (button.Name == "buttonEdit")
+            {
+                if (dataGridView1.SelectedRows.Count != 0)
+                {
+                    DataGridViewRow row = this.dataGridView1.SelectedRows[0];
+                    editMEvent.Invoke(row, EventArgs.Empty);
+                }
+                //OpenAddMatForm();
+                //SortEvent.Invoke(this, EventArgs.Empty);
+            }
         }
 
         private void Materials_Form_Load(object sender, EventArgs e)

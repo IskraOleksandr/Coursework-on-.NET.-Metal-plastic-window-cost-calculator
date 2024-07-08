@@ -131,7 +131,6 @@ namespace Metal_plastic_window_cost_calculator
                 IsASC = false;
             }
 
-
         }
 
         private void Materials_Form_Load(object sender, EventArgs e)

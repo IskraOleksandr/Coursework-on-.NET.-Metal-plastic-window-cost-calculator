@@ -168,10 +168,9 @@ namespace Metal_plastic_window_cost_calculator
         {
             Window_CalculatorContext context = new Window_CalculatorContext();
             Window_CalculatorRepository rep = new(context);
-            Form1 form1 = new Form1()/*(Form1)(Form)this*/;
+            Form1 form1 = new Form1();
             Window_CalculatorPresenter presenter = new Window_CalculatorPresenter(rep, form1);//form
-            //form1.FormClosing += Form1_FormClosing;
-            //Application.Run(form1);
+          
             form1.Show();//
             this.Hide();
         }
