@@ -1,6 +1,5 @@
 ﻿using Metal_plastic_window_cost_calculator.Models;
-using Metal_plastic_window_cost_calculator.Presenters;
-using Metal_plastic_window_cost_calculator.Repository;
+using Metal_plastic_window_cost_calculator.Presenters; 
 using Metal_plastic_window_cost_calculator.Views;
 using System;
 using System.Collections.Generic;
@@ -15,17 +14,24 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace Metal_plastic_window_cost_calculator
 {
-    public partial class Admin_Form : Form, IAdminView/*, IMaterialsView*/
+    public partial class Admin_Form : Form, IAdminView
     {
         //Singleton pattern (Open a single form instance)
         private static Admin_Form instance;
 
         public event EventHandler<EventArgs> SearchEvent;
-        public event EventHandler<EventArgs> get_material_desc;
         public event EventHandler<EventArgs> load_combobox_items;
         public event EventHandler<EventArgs> SortEvent;
         public event EventHandler<EventArgs> change_table;
-        public event EventHandler<EventArgs> editMEvent;
+
+        public event EventHandler<EventArgs> add;
+        public event EventHandler<EventArgs> edit;
+        public event EventHandler<EventArgs> delete;
+
+        public event EventHandler<EventArgs> addItemEvent;
+        public event EventHandler<EventArgs> editItemEvent;
+        public event EventHandler<EventArgs> deleteItemEvent;
+
 
         public bool IsASC { get; set; }
         public string LabelDescription { set; get; }
@@ -34,45 +40,121 @@ namespace Metal_plastic_window_cost_calculator
         public object OrderBy { get => comboBox2.SelectedItem; }
         public string SearchValue { get => textBox1.Text; }
 
+
+        public int Id { get; set; }
+        public string Category { get; set; }
+        public string Name_ { get; set; }
+        public string Color_ { get; set; }
+        public int CostPerMeter { get; set; }
+        public string Description { get; set; }
+
+        public string FullName { get; set; }
+        public string Login { get; set; }
+        public string Password { get; set; }
+        public string PasswordConfirm { get; set; }
+        public string Email { get; set; }
+        public bool IsAdmin { get; set; }
+
+
         public Admin_Form()
         {
             InitializeComponent();
         }
 
-        public void OpenAddMatForm()
+        public object getDataGridSelectedRow()
         {
-            Window_CalculatorContext context = new Window_CalculatorContext();
-            Window_CalculatorRepository rep = new(context);
-            FormAddMaterial form1 = new FormAddMaterial();
-            CRUD_Presenter presenter = new CRUD_Presenter(form1, context);//form
-
-            if (form1.ShowDialog() == DialogResult.OK)
-            {
-                //MessageBox.Show("Ok, got you.", "Welcome", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                get_material_desc.Invoke(this, EventArgs.Empty);
-            }
+            return dataGridView1.SelectedRows[0];
         }
 
-        public void OpenEditMatForm()
+        private void Change_Value(FormAddMaterial form2)
         {
-            Window_CalculatorContext context = new Window_CalculatorContext();
-            Window_CalculatorRepository rep = new(context);
-            
-            DataGridViewRow row = this.dataGridView1.SelectedRows[0];
-            FormAddMaterial form1 = new FormAddMaterial(true);
-            //form1.Category
-            CRUD_Presenter presenter = new CRUD_Presenter(form1, context);//form
+            Id = form2.Id;
+            Category = form2.Category;
+            Name_ = form2.Name_;
+            Color_ = form2.Color_;
+            CostPerMeter = form2.CostPerMeter;
+            Description = form2.Description;
+        }
 
-            if (form1.ShowDialog() == DialogResult.OK)
+        private void Change_ValueUser(FormAddUser form2)
+        {
+            Id = form2.Id;
+            FullName = form2.FullName;
+            Login = form2.Login;
+            Password = form2.Password;
+            PasswordConfirm = form2.PasswordConfirm;
+            Email = form2.Email;
+            IsAdmin = form2.IsAdmin;
+        }
+
+
+        public void OpenAddForms(bool flag)
+        {
+            if (flag)
             {
-                if (dataGridView1.SelectedRows.Count != 0)
+                FormAddMaterial form1 = new FormAddMaterial();
+                if (form1.ShowDialog() == DialogResult.OK)
                 {
-                    
-                    get_material_desc.Invoke(row, EventArgs.Empty);
+                    Change_Value(form1);
+                    addItemEvent.Invoke("mat", EventArgs.Empty);
                 }
-                //get_material_desc.Invoke(this, EventArgs.Empty);
+            }
+            else
+            {
+                FormAddUser form1 = new FormAddUser();
+                if (form1.ShowDialog() == DialogResult.OK)
+                {
+                    Change_ValueUser(form1);
+                    addItemEvent.Invoke("us", EventArgs.Empty);
+                }
             }
         }
+
+
+        public void OpenEditForms(bool flag)
+        {
+            if (flag)
+            {
+                FormAddMaterial form1 = new FormAddMaterial(dataGridView1.SelectedRows[0]);
+                if (form1.ShowDialog() == DialogResult.OK)
+                {
+                    Change_Value(form1);
+                    editItemEvent.Invoke("mat", EventArgs.Empty);
+                }
+            }
+            else
+            {
+                FormAddUser form1 = new FormAddUser(dataGridView1.SelectedRows[0]);
+                if (form1.ShowDialog() == DialogResult.OK)
+                {
+                    Change_ValueUser(form1);
+                    editItemEvent.Invoke("us", EventArgs.Empty);
+                }
+            }
+        }
+
+
+        public void OpenDeleteForms(bool flag)//Удаление выделенного элемента
+        {
+            if (flag)
+            {
+                DialogResult result = MessageBox.Show("Вы действительно хотите удалить товар?", "Каталог товаров", MessageBoxButtons.YesNo);
+                if (result == DialogResult.Yes)
+                {
+                    deleteItemEvent?.Invoke("mat", EventArgs.Empty);
+                }
+            }
+            else
+            {
+                DialogResult result = MessageBox.Show("Вы действительно хотите удалить товар?", "Каталог товаров", MessageBoxButtons.YesNo);
+                if (result == DialogResult.Yes)
+                {
+                    deleteItemEvent?.Invoke("us", EventArgs.Empty);
+                }
+            }
+        }
+
+
 
         public static Admin_Form GetInstace(Form parentContainer)
         {
@@ -97,12 +179,6 @@ namespace Metal_plastic_window_cost_calculator
             dataGridView1.DataSource = mList;
         }
 
-
-        public void Add_To_List(ListViewItem value)
-        {
-            //listView1.Items.Add(value);
-        }
-
         public void SetComboBoxItems(List<ComboBoxItem> items, List<ComboBoxItem> items1)
         {
             comboBox1.DataSource = items;
@@ -121,22 +197,17 @@ namespace Metal_plastic_window_cost_calculator
         public void SetComboBoxItems(List<ComboBoxItem> items)
         {
             comboBox3.DataSource = items;
-            comboBox3.DisplayMember = "Text"; 
-            comboBox3.ValueMember = "Id"; 
+            comboBox3.DisplayMember = "Text";
+            comboBox3.ValueMember = "Id";
             comboBox3.SelectedIndex = 0;
         }
 
-        public void ClearListView()
-        {
-            //listView1.Items.Clear();
-        }
 
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (dataGridView1.SelectedRows.Count != 0)
             {
-                DataGridViewRow row = this.dataGridView1.SelectedRows[0];
-                get_material_desc.Invoke(row.Cells["Id"].Value.ToString(), EventArgs.Empty);
+                edit.Invoke(this, EventArgs.Empty);
             }
         }
 
@@ -171,18 +242,29 @@ namespace Metal_plastic_window_cost_calculator
 
             if (button.Name == "buttonAdd")
             {
-                OpenAddMatForm();
-                //SortEvent.Invoke(this, EventArgs.Empty);
+                if (dataGridView1.SelectedRows.Count == 0)//Если товар не выбран
+                {
+                    MessageBox.Show("Вы не выбрали товар");
+                    return;
+                }else add.Invoke(this, EventArgs.Empty);
             }
+
             if (button.Name == "buttonEdit")
             {
-                if (dataGridView1.SelectedRows.Count != 0)
+                if (dataGridView1.SelectedRows.Count == 0)//Если товар не выбран
                 {
-                    DataGridViewRow row = this.dataGridView1.SelectedRows[0];
-                    editMEvent.Invoke(row, EventArgs.Empty);
-                }
-                //OpenAddMatForm();
-                //SortEvent.Invoke(this, EventArgs.Empty);
+                    MessageBox.Show("Вы не выбрали товар");
+                    return;
+                }else edit.Invoke(this, EventArgs.Empty);
+            }
+
+            if (button.Name == "buttonDel")
+            {
+                if (dataGridView1.SelectedRows.Count == 0)//Если товар не выбран
+                {
+                    MessageBox.Show("Вы не выбрали товар");
+                    return;
+                }else delete.Invoke(this, EventArgs.Empty);
             }
         }
 
@@ -201,5 +283,7 @@ namespace Metal_plastic_window_cost_calculator
         {
             change_table.Invoke(this, EventArgs.Empty);
         }
+
+
     }
 }

@@ -1,5 +1,4 @@
-﻿using Metal_plastic_window_cost_calculator.Models;
-using Metal_plastic_window_cost_calculator.Repository;
+﻿using Metal_plastic_window_cost_calculator.Models; 
 using Metal_plastic_window_cost_calculator.Views;
 using System;
 using System.Collections.Generic;
@@ -18,8 +17,7 @@ namespace Metal_plastic_window_cost_calculator.Presenters
     public class MaterialsPresenter
     {
         //Fields
-        private IMaterialsView _View;
-        private IRepository _repository;
+        private IMaterialsView _View; 
         private Window_CalculatorContext _context;
         private BindingSource materialsBindingSource;
         private IEnumerable<Materials> materialsList;

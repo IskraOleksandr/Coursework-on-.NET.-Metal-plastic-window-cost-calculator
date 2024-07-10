@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Metal_plastic_window_cost_calculator.Models
 {
-    public class User:IUser
+    public class User
     {
         public int Id { get; set; }
         public string? FullName { get; set; }

@@ -1,5 +1,4 @@
-﻿using Metal_plastic_window_cost_calculator.Models;
-using Metal_plastic_window_cost_calculator.Repository;
+﻿using Metal_plastic_window_cost_calculator.Models; 
 using Metal_plastic_window_cost_calculator.Views;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -15,30 +14,30 @@ namespace Metal_plastic_window_cost_calculator.Presenters
     {
         //Fields
         private IAdminView _View;
-        private IAddMaterialView _addView;
 
         private BindingSource materialsBindingSource;
         private IEnumerable<Materials> materialsList;
         private Window_CalculatorContext _context;
         //Constructor
-        public AdminMaterialsPresenter(IAdminView view, IAddMaterialView add, Window_CalculatorContext repository)
+        public AdminMaterialsPresenter(IAdminView view, Window_CalculatorContext repository)
         {
             this.materialsBindingSource = new BindingSource();
             this._View = view;
-            this._addView = add;
             this._context = repository;
 
             //Subscribe event handler methods to view events
-            //SetComboBox();
             _View.load_combobox_items += new EventHandler<EventArgs>(LoadComboBox);
             _View.change_table += new EventHandler<EventArgs>(ChageTable);
-            _View.get_material_desc += new EventHandler<EventArgs>(test2);
-            _View.SearchEvent += new EventHandler<EventArgs>(SearchPet);
-            _View.SortEvent += new EventHandler<EventArgs>(SortMateriar);
-            _View.editMEvent += new EventHandler<EventArgs>(EditMaterial);
-            _addView.validation_filds += new EventHandler<EventArgs>(validate_filds);
-            //
-            //_addView.editMaterial += new EventHandler<EventArgs>(EditMaterial);
+            _View.SearchEvent += new EventHandler<EventArgs>(SearchItem);
+            _View.SortEvent += new EventHandler<EventArgs>(SortMaterial);
+
+            _View.add += new EventHandler<EventArgs>(Add);
+            _View.edit += new EventHandler<EventArgs>(Edit);
+            _View.delete += new EventHandler<EventArgs>(Delete);
+
+            _View.addItemEvent += new EventHandler<EventArgs>(AddItem);
+            _View.editItemEvent += new EventHandler<EventArgs>(EditItem);
+            _View.deleteItemEvent += new EventHandler<EventArgs>(DeleteItem);
 
             //Set pets bindind source
             this._View.SetMaterialsListBindingSource(materialsBindingSource);
@@ -50,85 +49,135 @@ namespace Metal_plastic_window_cost_calculator.Presenters
             //Show view
             this._View.Show();
         }
-
-        private void validate_filds(object? sender, EventArgs e)
+        private void Add(object? sender, EventArgs e)
         {
-            //_View.
-            bool valid = true;
+            var selectedItem = (ComboBoxItem)_View.SelectedTable;
 
-            if (_addView.Category.Length <= 3)
+            if (selectedItem.Id == "MaterialsTable")
             {
-                _addView.LabelError_Category = "error";
-                valid = false;
+                _View.OpenAddForms(true);
             }
-            else _addView.LabelError_Category = "";
-
-
-            if (_addView.Name_.Length <= 3)
+            else if (selectedItem.Id == "UsersTable")
             {
-                _addView.LabelError_Name = "error";
-                valid = false;
+                _View.OpenAddForms(false);
             }
-            else _addView.LabelError_Name = "";
-
-
-            if (_addView.Color_.Length < 3)
-            {
-                _addView.LabelError_Color = "error";
-                valid = false;
-            }
-            else _addView.LabelError_Color = "";
-
-
-            if (_addView.CostPerMeter <= 0)
-            {
-                _addView.LabelError_CostPerMeter = "error";
-                valid = false;
-            }
-            else _addView.LabelError_CostPerMeter = "";
-
-
-            if (_addView.Description.Length < 1)
-            {
-                _addView.LabelError_Description = "error";
-                valid = false;
-            }
-            else _addView.LabelError_Description = "";
-
-
-            _addView.enable_button(valid);
         }
 
-        public void EditMaterial(object? sender, EventArgs e)
+        private void Edit(object? sender, EventArgs e)
         {
-            var row = sender as DataGridViewRow; ;
+            var selectedItem = (ComboBoxItem)_View.SelectedTable;
 
-           
-
-            using (var dialog = new FormAddMaterial(true))
+            if (selectedItem.Id == "MaterialsTable")
             {
-                dialog.Category = row.Cells["Category"].Value.ToString();
-                dialog.Name = row.Cells["Name"].Value.ToString();
-                dialog.Color_ = row.Cells["Color"].Value.ToString();
-                dialog.CostPerMeter = Convert.ToInt32(row.Cells["CostPerMeter"].Value);
-                dialog.Description = row.Cells["Description"].Value.ToString();
+                _View.OpenEditForms(true);
+            }
+            else if (selectedItem.Id == "UsersTable")
+            {
+                _View.OpenEditForms(false);
+            }
+        }
+        private void Delete(object? sender, EventArgs e)
+        {
+            var selectedItem = (ComboBoxItem)_View.SelectedTable;
 
-                if (dialog.ShowDialog() == DialogResult.OK)
+            if (selectedItem.Id == "MaterialsTable")
+            {
+                _View.OpenDeleteForms(true);
+            }
+            else if (selectedItem.Id == "UsersTable")
+            {
+                _View.OpenDeleteForms(false);
+            }
+        }
+        private void AddItem(object? sender, EventArgs e)
+        {
+            string str = sender as string;
+            if (str == "mat")
+            {
+                var authors = new Materials
                 {
-                    var authors = new Materials
-                    {
-                        Category = dialog.Category,
-                        Name = dialog.Name_,
-                        Color = dialog.Color_,
-                        CostPerMeter = dialog.CostPerMeter,
-                        Description =  dialog.Description,
-                    };
-
-                    _context.MaterialsTable.Update(authors);
-                    _context.SaveChanges();
-                }
+                    Category = _View.Category,
+                    Name = _View.Name_,
+                    Color = _View.Color_,
+                    CostPerMeter = _View.CostPerMeter,
+                    Description = _View.Description,
+                };
+                _context.MaterialsTable.Add(authors);
+            }else if(str == "us")
+            {
+                var user = new User
+                {
+                    FullName = _View.FullName,
+                    Login = _View.Login,
+                    Password = _View.Password,
+                    Email = _View.Email,
+                    IsAdmin = _View.IsAdmin,
+                };
+                _context.UsersTable.Add(user);
             }
+            _context.SaveChanges();
+
+            LoadAllItemsList();
         }
+
+
+        private void EditItem(object? sender, EventArgs e)
+        {
+            string str = sender as string;
+            if (str == "mat")
+            {
+                var query = (from b in _context.MaterialsTable where b.Id == _View.Id select b).Single();
+
+                query.Category = _View.Category;
+                query.Name = _View.Name_;
+                query.Color = _View.Color_;
+                query.CostPerMeter = _View.CostPerMeter;
+                query.Description = _View.Description;
+            }
+            else if (str == "us")
+            {
+                var query = (from b in _context.UsersTable where b.Id == _View.Id select b).Single();
+
+                query.FullName = _View.FullName;
+                query.Login = _View.Login;
+                query.Password = _View.Password;//
+                query.Email = _View.Email;
+                query.IsAdmin = _View.IsAdmin;
+            }
+            _context.SaveChanges();
+
+            LoadAllItemsList();
+        }
+
+        private void DeleteItem(object? sender, EventArgs e)
+        {
+            string str = sender as string;
+            if (str == "mat")
+            {
+                var row = _View.getDataGridSelectedRow() as DataGridViewRow;
+                var query = from b in _context.MaterialsTable where b.Id == Convert.ToInt32(row.Cells["Id"].Value) select b;
+
+                if (query == null)
+                    return;
+
+                _context.MaterialsTable.RemoveRange(query);
+            }
+            else if (str == "us")
+            {
+                var row = _View.getDataGridSelectedRow() as DataGridViewRow;
+                var query = from b in _context.UsersTable where b.Id == Convert.ToInt32(row.Cells["Id"].Value) select b;
+
+                if (query == null)
+                    return;
+
+                _context.UsersTable.RemoveRange(query);
+            }
+
+                _context.SaveChanges();
+
+            LoadAllItemsList();
+        }
+       
         private void ChageTable(object? sender, EventArgs e)
         {
             var selectedItem = (ComboBoxItem)_View.SelectedTable;
@@ -136,25 +185,21 @@ namespace Metal_plastic_window_cost_calculator.Presenters
 
             if (selectedItem.Id == "MaterialsTable")
             {
-                LoadAllPetList();
+                LoadAllItemsList();
                 SetComboBox(true);//
             }
             else if (selectedItem.Id == "UsersTable")
             {
-                LoadAllPetList();
+                LoadAllItemsList();
                 SetComboBox(false);//
             }
         }
-
-        //Methods
-        private void LoadAllPetList()
+         
+        private void LoadAllItemsList()
         {
             try
             {
-                //using (var db = new Window_CalculatorContext())
-                //{
                 var selectedItem = (ComboBoxItem)_View.SelectedTable;
-
 
                 if (selectedItem.Id == "MaterialsTable")
                 {
@@ -167,16 +212,10 @@ namespace Metal_plastic_window_cost_calculator.Presenters
                     materialsBindingSource.DataSource = query.ToList();
                     this._View.RemoveDataGridColumn("Password");
                 }
-
-
-
-                //this._View.RemoveDataGridColumn("Id");// Description
-                //    // Description
-                //}
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                
             }
         }
         public void LoadComboBox(object? sender, EventArgs e)
@@ -205,11 +244,7 @@ namespace Metal_plastic_window_cost_calculator.Presenters
         }
 
 
-        public async void test2(object? sender, EventArgs e)
-        {
-            LoadAllPetList();
-        }
-        private void SearchPet(object sender, EventArgs e)
+        private void SearchItem(object sender, EventArgs e)
         {
             var Item = (ComboBoxItem)_View.SelectedTable;
 
@@ -227,7 +262,7 @@ namespace Metal_plastic_window_cost_calculator.Presenters
             }
         }
 
-        private void SortMateriar(object? sender, EventArgs e)
+        private void SortMaterial(object? sender, EventArgs e)
         {
             try
             {
@@ -296,9 +331,7 @@ namespace Metal_plastic_window_cost_calculator.Presenters
         {
             try
             {
-                using (var db = new Window_CalculatorContext())
-                {
-                    IQueryable<Materials> query = db.MaterialsTable;
+                    IQueryable<Materials> query = _context.MaterialsTable;
                     if (!string.IsNullOrEmpty(where) && !string.IsNullOrEmpty(what))
                     {
                         if (where == "Id")
@@ -353,12 +386,11 @@ namespace Metal_plastic_window_cost_calculator.Presenters
                         }
                     }
 
-                    materialsBindingSource.DataSource = query.ToList();//
-                }
+                    materialsBindingSource.DataSource = query.ToList();
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+
             }
         }
 
@@ -366,8 +398,6 @@ namespace Metal_plastic_window_cost_calculator.Presenters
         {
             try
             {
-                //using (var db = new Window_CalculatorContext())
-                //{
                 IQueryable<User> query = _context.UsersTable;
                 if (!string.IsNullOrEmpty(where) && !string.IsNullOrEmpty(what))
                 {
@@ -390,13 +420,6 @@ namespace Metal_plastic_window_cost_calculator.Presenters
                     {
                         query = query.Where(m => EF.Property<string>(m, where).Contains(what));
                     }
-                    //else if (where == "CostPerMeter")
-                    //{
-                    //    if (int.TryParse(what, out int num))
-                    //    {
-                    //        query = query.Where(m => EF.Property<bool>(m, where) == true);
-                    //    }
-                    //}
                 }
 
                 if (!string.IsNullOrEmpty(how))
@@ -417,14 +440,9 @@ namespace Metal_plastic_window_cost_calculator.Presenters
                     {
                         query = query.OrderBy(m => EF.Property<string>(m, how));
                     }
-                    //else if (how == "CostPerMeter")
-                    //{
-                    //    query = query.OrderBy(m => EF.Property<int>(m, how));
-                    //}
                 }
 
-                materialsBindingSource.DataSource = query.ToList();//
-                                                                   // }
+                materialsBindingSource.DataSource = query.ToList();
             }
             catch (Exception ex)
             {
@@ -438,22 +456,18 @@ namespace Metal_plastic_window_cost_calculator.Presenters
                 new ComboBoxItem { Id = "Category", Text = "Category" }, new ComboBoxItem { Id = "Name", Text = "Name" },
                 new ComboBoxItem { Id = "Color", Text = "Color" } , new ComboBoxItem { Id = "CostPerMeter", Text = "Cost per meter" } };
         }
+
         public List<ComboBoxItem> GetComboBoxItemsT()
         {
             return new List<ComboBoxItem> { new ComboBoxItem { Id = "MaterialsTable", Text = "Materials" },
             new ComboBoxItem { Id = "UsersTable", Text = "Users" } };
         }
+
         public List<ComboBoxItem> GetComboBoxItemsUs()
         {
             return new List<ComboBoxItem> {new ComboBoxItem { Id = "Id", Text = "Id" },
                 new ComboBoxItem { Id = "FullName", Text = "FullName" }, new ComboBoxItem { Id = "Login", Text = "Login" },
                 new ComboBoxItem { Id = "Email", Text = "Email" } , new ComboBoxItem { Id = "IsAdmin", Text = "Is admin" } };
         }
-        //private void ShowMaterialssView(object sender, EventArgs e)
-        //{
-        //    IMaterialsView view = Materials_Form.GetInstace((Form1)_View);
-        //    Window_CalculatorContext context = new Window_CalculatorContext();
-        //    new MaterialsPresenter(view, context);//
-        //}
     }
 }

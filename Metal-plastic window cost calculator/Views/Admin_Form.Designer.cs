@@ -86,6 +86,7 @@ namespace Metal_plastic_window_cost_calculator
             buttonDel.TabIndex = 32;
             buttonDel.Text = "Delete";
             buttonDel.UseVisualStyleBackColor = false;
+            buttonDel.Click += button1_Click;
             // 
             // buttonEdit
             // 

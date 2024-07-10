@@ -1,6 +1,5 @@
 using Metal_plastic_window_cost_calculator.Models;
-using Metal_plastic_window_cost_calculator.Presenters;
-using Metal_plastic_window_cost_calculator.Repository;
+using Metal_plastic_window_cost_calculator.Presenters; 
 
 namespace Metal_plastic_window_cost_calculator
 {
@@ -18,20 +17,13 @@ namespace Metal_plastic_window_cost_calculator
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             
             Window_CalculatorContext context = new Window_CalculatorContext();
-            Window_CalculatorRepository rep = new(context);
-
-            User us = new User();
-
 
             FormLog log = new FormLog();
-            Window_CalcPresenter pres = new Window_CalcPresenter(us, rep, log);//form
-            
             Form1 form = new Form1();
             Admin_Form admin_Form = new Admin_Form();
-            Window_CalculatorPresenter presenter = new Window_CalculatorPresenter(/*us,*/ rep, form/*, admin_Form*/);//form
+            Window_CalcPresenter presenter = new Window_CalcPresenter(context, log, form);//form
 
             log.Show();
-            //form.Show();
 
             Application.Run();
         }

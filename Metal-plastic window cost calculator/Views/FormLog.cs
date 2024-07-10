@@ -1,6 +1,5 @@
 using Metal_plastic_window_cost_calculator.Models;
-using Metal_plastic_window_cost_calculator.Presenters;
-using Metal_plastic_window_cost_calculator.Repository;
+using Metal_plastic_window_cost_calculator.Presenters; 
 using Metal_plastic_window_cost_calculator.Views;
 using System.Windows.Forms;
 
@@ -9,15 +8,17 @@ namespace Metal_plastic_window_cost_calculator
     public partial class FormLog : Form, IWindow_Calc_Log_View
     {
         public FormLog Form_Login { get; set; }
+
         #region IWindow_Calculator_View Implementation
 
-        public string Login { get => textBoxLogin.Text.Trim(); set => textBoxLogin.Text = value; }
-        public string Error_Login { set => label_error_login.Text = value; }
 
-        public string Password { get => textBoxPassword.Text.Trim(); set => textBoxPassword.Text = value; }
         public string FullName { get => textBoxFullName.Text.Trim(); set => textBoxFullName.Text = value; }
+        public string Login { get => textBoxLogin.Text.Trim(); set => textBoxLogin.Text = value; }
+        public string Password { get => textBoxPassword.Text.Trim(); set => textBoxPassword.Text = value; }
+        public string PasswordConfirm { get => textBoxPasswordConfirm.Text.Trim(); set => textBoxPasswordConfirm.Text = value; }
+
         public string Email { get => textBoxEmail.Text.Trim(); set => textBoxEmail.Text = value; }
-        public bool IsAdmin { get => checkBoxAdminReg.Checked; set => checkBoxAdminReg.Checked = value; }
+        public string Error_Login { set => label_error_login.Text = value; }
 
 
         public event EventHandler<EventArgs> login;
@@ -25,6 +26,8 @@ namespace Metal_plastic_window_cost_calculator
         public event EventHandler<EventArgs> register_validation;
         public event EventHandler<EventArgs> login_validation;
 
+        public event EventHandler<EventArgs> ShowPetView;
+        public event EventHandler<EventArgs> ShowAdmDbView;
 
         public void LetUserLogin()
         {
@@ -36,28 +39,36 @@ namespace Metal_plastic_window_cost_calculator
         {
             InitializeComponent();
             this.Width = 283;
-            this.Height = 443;
+            this.Height = 415;
+
+            button1.Location = new Point(88, 300);
+            label7.Location = new Point(30, 345);
+            label1.Location = new Point(169, 345);
 
             label_FullName.Visible = false;
             textBoxFullName.Visible = false;
             label_error_fullname.Visible = false;
 
+            label_error_pas_conf.Visible = false;
+            textBoxPasswordConfirm.Visible = false;
+            label_pas_conf.Visible = false;
+
             label_Email.Visible = false;
             textBoxEmail.Visible = false;
             label_error_email.Visible = false;
 
-            checkBoxAdminReg.Visible = false;
+            //checkBoxAdminReg.Visible = false;
 
-            labelTitle.Location = new Point(88, 143);
+            labelTitle.Location = new Point(88, 93);//143
             labelTitle.Text = "LOG IN";
 
-            label_Login.Location = new Point(63, 198);
-            textBoxLogin.Location = new Point(63, 216);
-            label_error_login.Location = new Point(63, 240);
+            label_Login.Location = new Point(63, 168);//198    -30
+            textBoxLogin.Location = new Point(63, 186);//216
+            label_error_login.Location = new Point(63, 210);//240
 
-            label_Password.Location = new Point(63, 262);
-            textBoxPassword.Location = new Point(63, 280);
-            label_error_pas.Location = new Point(63, 306);
+            label_Password.Location = new Point(63, 232);//262
+            textBoxPassword.Location = new Point(63, 250);//280
+            label_error_pas.Location = new Point(63, 276);//306
         }
 
 
@@ -75,27 +86,39 @@ namespace Metal_plastic_window_cost_calculator
                 textBoxEmail.Visible = true;
                 label_error_email.Visible = true;
 
-                checkBoxAdminReg.Visible = true;
+                label_pas_conf.Visible = true;
+                textBoxPasswordConfirm.Visible = true;
+                label_error_pas_conf.Visible = true;
+
 
                 labelTitle.Location = new Point(88, 25);
 
-                label_Login.Location = new Point(63, 70);
-                textBoxLogin.Location = new Point(63, 88);
-                label_error_login.Location = new Point(63, 114);
+                label_Login.Location = new Point(63, 138);//70
+                textBoxLogin.Location = new Point(63, 156);//88
+                label_error_login.Location = new Point(63, 183);//114
 
-                label_Password.Location = new Point(63, 136);
-                textBoxPassword.Location = new Point(63, 154);
-                label_error_pas.Location = new Point(63, 177);
+                label_Password.Location = new Point(63, 204);//136
+                textBoxPassword.Location = new Point(63, 222);//154
+                label_error_pas.Location = new Point(63, 249);//177
 
                 labelTitle.Text = "SIGN UP";
                 button1.Text = "Sign Up";
                 label1.Text = "Login";
                 label7.Text = "Have an account?";
+                this.Height = 497;
+
+                label7.Location = new Point(45, 431);
+                button1.Location = new Point(95, 388);
+                label1.Location = new Point(169, 431);
 
                 TextBoxsChangeBind(true);
             }
             else if (label1.Text == "Login")
             {
+                button1.Location = new Point(95, 300);
+                label7.Location = new Point(30, 345);
+                label1.Location = new Point(169, 345);
+
                 label_FullName.Visible = false;
                 textBoxFullName.Visible = false;
                 label_error_fullname.Visible = false;
@@ -104,23 +127,27 @@ namespace Metal_plastic_window_cost_calculator
                 textBoxEmail.Visible = false;
                 label_error_email.Visible = false;
 
-                checkBoxAdminReg.Visible = false;
+                label_pas_conf.Visible = false;
+                textBoxPasswordConfirm.Visible = false;
+                label_error_pas_conf.Visible = false;
 
-                labelTitle.Location = new Point(88, 143);
 
-                label_Login.Location = new Point(63, 198);
-                textBoxLogin.Location = new Point(63, 216);
-                label_error_login.Location = new Point(63, 240);
+                labelTitle.Location = new Point(88, 93);//143
 
-                label_Password.Location = new Point(63, 262);
-                textBoxPassword.Location = new Point(63, 280);
-                label_error_pas.Location = new Point(63, 306);
+                label_Login.Location = new Point(63, 168);//198    -30
+                textBoxLogin.Location = new Point(63, 186);//216
+                label_error_login.Location = new Point(63, 210);//240
+
+                label_Password.Location = new Point(63, 232);//262
+                textBoxPassword.Location = new Point(63, 250);//280
+                label_error_pas.Location = new Point(63, 276);//306
 
                 labelTitle.Text = "LOG IN";
                 button1.Text = "Log In";
                 label1.Text = "Registration";
                 label7.Text = "Don't have an account?";
 
+                this.Height = 415;
                 TextBoxsChangeBind(false);
             }
 
@@ -164,13 +191,12 @@ namespace Metal_plastic_window_cost_calculator
                  MessageBoxButtons.OK, MessageBoxIcon.Question);
         }
 
-        public void OpenMainForm()
+        public void OpenMainForm(bool flag)
         {
-            Window_CalculatorContext context = new Window_CalculatorContext();
-            Window_CalculatorRepository rep = new(context);
-            Form1 form1 = new Form1();
-            Window_CalculatorPresenter presenter = new Window_CalculatorPresenter(rep, form1);//form
-          
+            Window_CalculatorContext context = new Window_CalculatorContext(); 
+            Form1 form1 = new Form1(flag);
+            Window_CalcPresenter presenter = new Window_CalcPresenter(context, this, form1);//form
+
             form1.Show();//
             this.Hide();
         }
@@ -190,6 +216,5 @@ namespace Metal_plastic_window_cost_calculator
             login_validation.Invoke(this, EventArgs.Empty);
         }
 
-       
     }
 }

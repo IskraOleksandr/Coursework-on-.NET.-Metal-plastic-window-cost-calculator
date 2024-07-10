@@ -1,6 +1,6 @@
 ﻿namespace Metal_plastic_window_cost_calculator.Views
 {
-    partial class FormAddMaterial
+    partial class FormAddUser
     {
         /// <summary>
         /// Required designer variable.
@@ -28,10 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            label_error_cost = new Label();
-            label_error_color = new Label();
-            label_error_name = new Label();
-            label_error_category = new Label();
+            label_error_password_confirm = new Label();
+            label_error_password = new Label();
+            label_error_login = new Label();
+            label_error_fullname = new Label();
             textBoxCategory = new TextBox();
             textBoxName = new TextBox();
             label_Category = new Label();
@@ -41,53 +41,53 @@
             label_Color = new Label();
             textBoxColor = new TextBox();
             buttonAdd = new Button();
-            label_error_description = new Label();
+            label_error_email = new Label();
             label_Description = new Label();
             textBoxDescription = new TextBox();
-            numericCostPerMetr = new NumericUpDown();
-            ((System.ComponentModel.ISupportInitialize)numericCostPerMetr).BeginInit();
+            textBoxPasswordConfirm = new TextBox();
+            checkBoxAdminReg = new CheckBox();
             SuspendLayout();
             // 
-            // label_error_cost
+            // label_error_password_confirm
             // 
-            label_error_cost.AutoSize = true;
-            label_error_cost.ForeColor = Color.Red;
-            label_error_cost.Location = new Point(45, 289);
-            label_error_cost.Name = "label_error_cost";
-            label_error_cost.Size = new Size(0, 15);
-            label_error_cost.TabIndex = 31;
+            label_error_password_confirm.AutoSize = true;
+            label_error_password_confirm.ForeColor = Color.Red;
+            label_error_password_confirm.Location = new Point(45, 295);
+            label_error_password_confirm.Name = "label_error_password_confirm";
+            label_error_password_confirm.Size = new Size(0, 15);
+            label_error_password_confirm.TabIndex = 31;
             // 
-            // label_error_color
+            // label_error_password
             // 
-            label_error_color.AutoSize = true;
-            label_error_color.ForeColor = Color.Red;
-            label_error_color.Location = new Point(45, 223);
-            label_error_color.Name = "label_error_color";
-            label_error_color.Size = new Size(0, 15);
-            label_error_color.TabIndex = 30;
+            label_error_password.AutoSize = true;
+            label_error_password.ForeColor = Color.Red;
+            label_error_password.Location = new Point(45, 229);
+            label_error_password.Name = "label_error_password";
+            label_error_password.Size = new Size(0, 15);
+            label_error_password.TabIndex = 30;
             // 
-            // label_error_name
+            // label_error_login
             // 
-            label_error_name.AutoSize = true;
-            label_error_name.ForeColor = Color.Red;
-            label_error_name.Location = new Point(45, 160);
-            label_error_name.Name = "label_error_name";
-            label_error_name.Size = new Size(0, 15);
-            label_error_name.TabIndex = 29;
+            label_error_login.AutoSize = true;
+            label_error_login.ForeColor = Color.Red;
+            label_error_login.Location = new Point(45, 166);
+            label_error_login.Name = "label_error_login";
+            label_error_login.Size = new Size(0, 15);
+            label_error_login.TabIndex = 29;
             // 
-            // label_error_category
+            // label_error_fullname
             // 
-            label_error_category.AutoSize = true;
-            label_error_category.ForeColor = Color.Red;
-            label_error_category.Location = new Point(45, 97);
-            label_error_category.Name = "label_error_category";
-            label_error_category.Size = new Size(0, 15);
-            label_error_category.TabIndex = 28;
+            label_error_fullname.AutoSize = true;
+            label_error_fullname.ForeColor = Color.Red;
+            label_error_fullname.Location = new Point(45, 103);
+            label_error_fullname.Name = "label_error_fullname";
+            label_error_fullname.Size = new Size(0, 15);
+            label_error_fullname.TabIndex = 28;
             // 
             // textBoxCategory
             // 
             textBoxCategory.Cursor = Cursors.IBeam;
-            textBoxCategory.Location = new Point(45, 71);
+            textBoxCategory.Location = new Point(45, 77);
             textBoxCategory.Name = "textBoxCategory";
             textBoxCategory.Size = new Size(188, 23);
             textBoxCategory.TabIndex = 17;
@@ -95,7 +95,7 @@
             // 
             // textBoxName
             // 
-            textBoxName.Location = new Point(45, 137);
+            textBoxName.Location = new Point(45, 143);
             textBoxName.Name = "textBoxName";
             textBoxName.PasswordChar = '*';
             textBoxName.Size = new Size(188, 23);
@@ -105,20 +105,20 @@
             // label_Category
             // 
             label_Category.AutoSize = true;
-            label_Category.Location = new Point(45, 53);
+            label_Category.Location = new Point(45, 59);
             label_Category.Name = "label_Category";
-            label_Category.Size = new Size(58, 15);
+            label_Category.Size = new Size(61, 15);
             label_Category.TabIndex = 20;
-            label_Category.Text = "Category:";
+            label_Category.Text = "FullName:";
             // 
             // label_Name
             // 
             label_Name.AutoSize = true;
-            label_Name.Location = new Point(45, 119);
+            label_Name.Location = new Point(45, 125);
             label_Name.Name = "label_Name";
-            label_Name.Size = new Size(42, 15);
+            label_Name.Size = new Size(40, 15);
             label_Name.TabIndex = 21;
-            label_Name.Text = "Name:";
+            label_Name.Text = "Login:";
             // 
             // labelTitle
             // 
@@ -126,34 +126,35 @@
             labelTitle.Font = new Font("Calibri", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 204);
             labelTitle.Location = new Point(71, 18);
             labelTitle.Name = "labelTitle";
-            labelTitle.Size = new Size(131, 26);
+            labelTitle.Size = new Size(98, 26);
             labelTitle.TabIndex = 27;
-            labelTitle.Text = "New Material";
+            labelTitle.Text = "New User";
             // 
             // label_CostPerMetr
             // 
             label_CostPerMetr.AutoSize = true;
-            label_CostPerMetr.Location = new Point(45, 245);
+            label_CostPerMetr.Location = new Point(45, 251);
             label_CostPerMetr.Name = "label_CostPerMetr";
-            label_CostPerMetr.Size = new Size(76, 15);
+            label_CostPerMetr.Size = new Size(105, 15);
             label_CostPerMetr.TabIndex = 25;
-            label_CostPerMetr.Text = "CostPerMetr:";
+            label_CostPerMetr.Text = "Password confirm:";
             // 
             // label_Color
             // 
             label_Color.AutoSize = true;
-            label_Color.Location = new Point(45, 181);
+            label_Color.Location = new Point(45, 187);
             label_Color.Name = "label_Color";
-            label_Color.Size = new Size(39, 15);
+            label_Color.Size = new Size(60, 15);
             label_Color.TabIndex = 23;
-            label_Color.Text = "Color:";
+            label_Color.Text = "Password:";
             // 
             // textBoxColor
             // 
-            textBoxColor.Location = new Point(45, 199);
+            textBoxColor.Location = new Point(45, 205);
             textBoxColor.Name = "textBoxColor";
             textBoxColor.Size = new Size(188, 23);
             textBoxColor.TabIndex = 22;
+            textBoxColor.UseSystemPasswordChar = true;
             textBoxColor.TextChanged += textBoxCategory_TextChanged;
             // 
             // buttonAdd
@@ -171,58 +172,67 @@
             buttonAdd.UseVisualStyleBackColor = false;
             buttonAdd.Click += buttonAdd_Click;
             // 
-            // label_error_description
+            // label_error_email
             // 
-            label_error_description.AutoSize = true;
-            label_error_description.ForeColor = Color.Red;
-            label_error_description.Location = new Point(45, 386);
-            label_error_description.Name = "label_error_description";
-            label_error_description.Size = new Size(0, 15);
-            label_error_description.TabIndex = 34;
+            label_error_email.AutoSize = true;
+            label_error_email.ForeColor = Color.Red;
+            label_error_email.Location = new Point(45, 358);
+            label_error_email.Name = "label_error_email";
+            label_error_email.Size = new Size(0, 15);
+            label_error_email.TabIndex = 34;
             // 
             // label_Description
             // 
             label_Description.AutoSize = true;
-            label_Description.Location = new Point(45, 304);
+            label_Description.Location = new Point(45, 314);
             label_Description.Name = "label_Description";
-            label_Description.Size = new Size(70, 15);
+            label_Description.Size = new Size(39, 15);
             label_Description.TabIndex = 33;
-            label_Description.Text = "Description:";
+            label_Description.Text = "Email:";
             // 
             // textBoxDescription
             // 
             textBoxDescription.Cursor = Cursors.IBeam;
-            textBoxDescription.Location = new Point(45, 322);
-            textBoxDescription.Multiline = true;
+            textBoxDescription.Location = new Point(45, 332);
             textBoxDescription.Name = "textBoxDescription";
             textBoxDescription.ScrollBars = ScrollBars.Vertical;
-            textBoxDescription.Size = new Size(188, 61);
+            textBoxDescription.Size = new Size(188, 23);
             textBoxDescription.TabIndex = 32;
             textBoxDescription.TextChanged += textBoxCategory_TextChanged;
             // 
-            // numericCostPerMetr
+            // textBoxPasswordConfirm
             // 
-            numericCostPerMetr.InterceptArrowKeys = false;
-            numericCostPerMetr.Location = new Point(45, 263);
-            numericCostPerMetr.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
-            numericCostPerMetr.Name = "numericCostPerMetr";
-            numericCostPerMetr.Size = new Size(188, 23);
-            numericCostPerMetr.TabIndex = 35;
-            numericCostPerMetr.ValueChanged += textBoxCategory_TextChanged;
+            textBoxPasswordConfirm.Location = new Point(45, 269);
+            textBoxPasswordConfirm.Name = "textBoxPasswordConfirm";
+            textBoxPasswordConfirm.Size = new Size(188, 23);
+            textBoxPasswordConfirm.TabIndex = 35;
+            textBoxPasswordConfirm.UseSystemPasswordChar = true;
             // 
-            // FormAddMaterial
+            // checkBoxAdminReg
+            // 
+            checkBoxAdminReg.AutoSize = true;
+            checkBoxAdminReg.Location = new Point(45, 382);
+            checkBoxAdminReg.Name = "checkBoxAdminReg";
+            checkBoxAdminReg.Size = new Size(62, 19);
+            checkBoxAdminReg.TabIndex = 36;
+            checkBoxAdminReg.Text = "Admin";
+            checkBoxAdminReg.UseVisualStyleBackColor = true;
+            checkBoxAdminReg.CheckedChanged += checkBoxAdminReg_CheckedChanged;
+            // 
+            // FormAddUser
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(283, 459);
-            Controls.Add(numericCostPerMetr);
-            Controls.Add(label_error_description);
+            Controls.Add(checkBoxAdminReg);
+            Controls.Add(textBoxPasswordConfirm);
+            Controls.Add(label_error_email);
             Controls.Add(textBoxDescription);
             Controls.Add(label_Description);
-            Controls.Add(label_error_cost);
-            Controls.Add(label_error_color);
-            Controls.Add(label_error_name);
-            Controls.Add(label_error_category);
+            Controls.Add(label_error_password_confirm);
+            Controls.Add(label_error_password);
+            Controls.Add(label_error_login);
+            Controls.Add(label_error_fullname);
             Controls.Add(textBoxCategory);
             Controls.Add(textBoxName);
             Controls.Add(label_Category);
@@ -233,19 +243,18 @@
             Controls.Add(textBoxColor);
             Controls.Add(buttonAdd);
             FormBorderStyle = FormBorderStyle.FixedToolWindow;
-            Name = "FormAddMaterial";
-            Text = "Add new material";
-            ((System.ComponentModel.ISupportInitialize)numericCostPerMetr).EndInit();
+            Name = "FormAddUser";
+            Text = "Add new user";
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
 
-        private Label label_error_cost;
-        private Label label_error_color;
-        private Label label_error_name;
-        private Label label_error_category;
+        private Label label_error_password_confirm;
+        private Label label_error_password;
+        private Label label_error_login;
+        private Label label_error_fullname;
         private TextBox textBoxCategory;
         private TextBox textBoxName;
         private Label label_Category;
@@ -256,9 +265,10 @@
         private Label label_Color;
         private TextBox textBoxColor;
         private Button buttonAdd;
-        private Label label_error_description;
+        private Label label_error_email;
         private Label label_Description;
         private TextBox textBoxDescription;
-        private NumericUpDown numericCostPerMetr;
+        private TextBox textBoxPasswordConfirm;
+        private CheckBox checkBoxAdminReg;
     }
 }

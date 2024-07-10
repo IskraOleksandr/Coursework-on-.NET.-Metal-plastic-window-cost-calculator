@@ -19,6 +19,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Views\FormAddUser.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Views\FormLog.cs">
       <SubType>Form</SubType>
     </Compile>
