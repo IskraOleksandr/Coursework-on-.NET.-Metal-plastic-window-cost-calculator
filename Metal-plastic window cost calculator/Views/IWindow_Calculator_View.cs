@@ -11,7 +11,6 @@ namespace Metal_plastic_window_cost_calculator.Views
         event EventHandler<EventArgs> ShowPetView;
         event EventHandler<EventArgs> ShowAdmDbView;
         event EventHandler<EventArgs> ShowBuyWindowView;
-
         void hide_button();
     }
 }

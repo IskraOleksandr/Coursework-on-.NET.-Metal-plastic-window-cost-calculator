@@ -97,7 +97,6 @@
             // 
             textBoxName.Location = new Point(45, 143);
             textBoxName.Name = "textBoxName";
-            textBoxName.PasswordChar = '*';
             textBoxName.Size = new Size(188, 23);
             textBoxName.TabIndex = 19;
             textBoxName.TextChanged += textBoxCategory_TextChanged;
@@ -207,6 +206,7 @@
             textBoxPasswordConfirm.Size = new Size(188, 23);
             textBoxPasswordConfirm.TabIndex = 35;
             textBoxPasswordConfirm.UseSystemPasswordChar = true;
+            textBoxPasswordConfirm.TextChanged += textBoxPasswordConfirm_TextChanged;
             // 
             // checkBoxAdminReg
             // 

@@ -7,17 +7,30 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Metal_plastic_window_cost_calculator.Views
 {
-    public partial class FormAddMaterial : Form/*, IAddMaterialView*/
+    public partial class FormAddMaterial : Form
     {
-        private bool edit { get; set; }
+        public int Id { get; set; }
+        public string Category { get => comboBox1.SelectedItem.ToString(); set => comboBox1.SelectedItem = value; }
+
+        public string Name_ { get => textBoxName.Text.Trim(); set => textBoxName.Text = value; }
+        public string Color_ { get => textBoxColor.Text.Trim(); set => textBoxColor.Text = value; }
+
+        public int CostPerMeter { get => ((int)numericCostPerMetr.Value); set => numericCostPerMetr.Value = value; }
+        public string Description { get => textBoxDescription.Text.Trim(); set => textBoxDescription.Text = value; }
+
+
         public FormAddMaterial()
         {
             InitializeComponent();
             labelTitle.Text = "Add new material";
+            comboBox1.Items.Add("Select");
+            comboBox1.Items.Add("Frame");
+            comboBox1.Items.Add("Glass");
+            comboBox1.Items.Add("Furniture");
             enable_button(false);
             Id = 0;
         }
@@ -26,55 +39,32 @@ namespace Metal_plastic_window_cost_calculator.Views
         {
             InitializeComponent();
             enable_button(false);
+            buttonAdd.Text = "Edit";
 
             labelTitle.Text = "Add new material";
+            comboBox1.Items.Add("Select");
+            comboBox1.Items.Add("Frame");
+            comboBox1.Items.Add("Glass");
+            comboBox1.Items.Add("Furniture");
 
             var row = obj as DataGridViewRow;
             Id = Convert.ToInt32(row.Cells["Id"].Value);
             Category = row.Cells["Category"].Value.ToString();
+
             Name_ = row.Cells["Name"].Value.ToString();
             Color_ = row.Cells["Color"].Value.ToString();
             CostPerMeter = Convert.ToInt32(row.Cells["CostPerMeter"].Value);
             Description = row.Cells["Description"].Value.ToString();
         }
-        public int Id { get; set; }
-        public string Category
-        {
-            get => textBoxCategory.Text.Trim();
-            set => textBoxCategory.Text = value;
-        }
-         
-        public string Name_
-        {
-            get => textBoxName.Text.Trim();
-            set => textBoxName.Text = value;
-        }
-         
-        public string Color_
-        {
-            get => textBoxColor.Text.Trim();
-            set => textBoxColor.Text = value;
-        }
-         
-        public int CostPerMeter
-        {
-            get => ((int)numericCostPerMetr.Value);
-            set => numericCostPerMetr.Value = value;
-        }
-        
-        public string Description
-        {
-            get => textBoxDescription.Text.Trim();
-            set => textBoxDescription.Text = value;
-        }
- 
+
+
         private void buttonAdd_Click(object sender, EventArgs e)
-        { 
+        {
             DialogResult = DialogResult.OK;
         }
 
         private void textBoxCategory_TextChanged(object sender, EventArgs e)
-        { 
+        {
             validate_filds();
         }
 
@@ -82,9 +72,9 @@ namespace Metal_plastic_window_cost_calculator.Views
         {
             bool valid = true;
 
-            if (Category.Length <= 3)
+            if (Category == "Select")
             {
-                label_error_category.Text = "error";
+                label_error_category.Text = "Please select a category";
                 valid = false;
             }
             else label_error_category.Text = "";
@@ -92,7 +82,7 @@ namespace Metal_plastic_window_cost_calculator.Views
 
             if (Name_.Length <= 3)
             {
-                label_error_name.Text = "error";
+                label_error_name.Text = "Invalid field length";
                 valid = false;
             }
             else label_error_name.Text = "";
@@ -100,7 +90,7 @@ namespace Metal_plastic_window_cost_calculator.Views
 
             if (Color_.Length < 3)
             {
-                label_error_color.Text = "error";
+                label_error_color.Text = "Invalid field length";
                 valid = false;
             }
             else label_error_color.Text = "";
@@ -108,7 +98,7 @@ namespace Metal_plastic_window_cost_calculator.Views
 
             if (CostPerMeter <= 0)
             {
-                label_error_cost.Text = "error";
+                label_error_cost.Text = "Incorrect number";
                 valid = false;
             }
             else label_error_cost.Text = "";
@@ -116,7 +106,7 @@ namespace Metal_plastic_window_cost_calculator.Views
 
             if (Description.Length < 1)
             {
-                label_error_description.Text = "error";
+                label_error_description.Text = "Invalid field length";
                 valid = false;
             }
             else label_error_description.Text = "";

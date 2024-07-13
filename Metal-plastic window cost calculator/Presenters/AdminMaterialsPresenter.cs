@@ -1,4 +1,4 @@
-﻿using Metal_plastic_window_cost_calculator.Models; 
+﻿using Metal_plastic_window_cost_calculator.Models;
 using Metal_plastic_window_cost_calculator.Views;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -18,6 +18,7 @@ namespace Metal_plastic_window_cost_calculator.Presenters
         private BindingSource materialsBindingSource;
         private IEnumerable<Materials> materialsList;
         private Window_CalculatorContext _context;
+
         //Constructor
         public AdminMaterialsPresenter(IAdminView view, Window_CalculatorContext repository)
         {
@@ -39,16 +40,13 @@ namespace Metal_plastic_window_cost_calculator.Presenters
             _View.editItemEvent += new EventHandler<EventArgs>(EditItem);
             _View.deleteItemEvent += new EventHandler<EventArgs>(DeleteItem);
 
-            //Set pets bindind source
+
             this._View.SetMaterialsListBindingSource(materialsBindingSource);
-
-            //Load pet list view
-
             LoadAllItemsList();
 
-            //Show view
             this._View.Show();
         }
+
         private void Add(object? sender, EventArgs e)
         {
             var selectedItem = (ComboBoxItem)_View.SelectedTable;
@@ -103,7 +101,8 @@ namespace Metal_plastic_window_cost_calculator.Presenters
                     Description = _View.Description,
                 };
                 _context.MaterialsTable.Add(authors);
-            }else if(str == "us")
+            }
+            else if (str == "us")
             {
                 var user = new User
                 {
@@ -119,7 +118,6 @@ namespace Metal_plastic_window_cost_calculator.Presenters
 
             LoadAllItemsList();
         }
-
 
         private void EditItem(object? sender, EventArgs e)
         {
@@ -173,11 +171,11 @@ namespace Metal_plastic_window_cost_calculator.Presenters
                 _context.UsersTable.RemoveRange(query);
             }
 
-                _context.SaveChanges();
+            _context.SaveChanges();
 
             LoadAllItemsList();
         }
-       
+
         private void ChageTable(object? sender, EventArgs e)
         {
             var selectedItem = (ComboBoxItem)_View.SelectedTable;
@@ -194,7 +192,7 @@ namespace Metal_plastic_window_cost_calculator.Presenters
                 SetComboBox(false);//
             }
         }
-         
+
         private void LoadAllItemsList()
         {
             try
@@ -215,9 +213,10 @@ namespace Metal_plastic_window_cost_calculator.Presenters
             }
             catch (Exception ex)
             {
-                
+
             }
         }
+
         public void LoadComboBox(object? sender, EventArgs e)
         {
             var items = GetComboBoxItems();
@@ -242,7 +241,6 @@ namespace Metal_plastic_window_cost_calculator.Presenters
                 _View.SetComboBoxItems(items, items1);
             }
         }
-
 
         private void SearchItem(object sender, EventArgs e)
         {
@@ -331,62 +329,62 @@ namespace Metal_plastic_window_cost_calculator.Presenters
         {
             try
             {
-                    IQueryable<Materials> query = _context.MaterialsTable;
-                    if (!string.IsNullOrEmpty(where) && !string.IsNullOrEmpty(what))
+                IQueryable<Materials> query = _context.MaterialsTable;
+                if (!string.IsNullOrEmpty(where) && !string.IsNullOrEmpty(what))
+                {
+                    if (where == "Id")
                     {
-                        if (where == "Id")
+                        if (int.TryParse(what, out int id))
                         {
-                            if (int.TryParse(what, out int id))
-                            {
-                                query = query.Where(m => EF.Property<int>(m, where) == id);
-                            }
-                        }
-                        else if (where == "Category")
-                        {
-                            query = query.Where(m => EF.Property<string>(m, where).Contains(what));
-                        }
-                        else if (where == "Name")
-                        {
-                            query = query.Where(m => EF.Property<string>(m, where).Contains(what));
-                        }
-                        else if (where == "Color")
-                        {
-                            query = query.Where(m => EF.Property<string>(m, where).Contains(what));
-                        }
-                        else if (where == "CostPerMeter")
-                        {
-                            if (int.TryParse(what, out int num))
-                            {
-                                query = query.Where(m => EF.Property<int>(m, where) == num);
-                            }
+                            query = query.Where(m => EF.Property<int>(m, where) == id);
                         }
                     }
-
-                    if (!string.IsNullOrEmpty(how))
+                    else if (where == "Category")
                     {
-                        if (how == "Id")
+                        query = query.Where(m => EF.Property<string>(m, where).Contains(what));
+                    }
+                    else if (where == "Name")
+                    {
+                        query = query.Where(m => EF.Property<string>(m, where).Contains(what));
+                    }
+                    else if (where == "Color")
+                    {
+                        query = query.Where(m => EF.Property<string>(m, where).Contains(what));
+                    }
+                    else if (where == "CostPerMeter")
+                    {
+                        if (int.TryParse(what, out int num))
                         {
-                            query = query.OrderBy(m => EF.Property<int>(m, how));
-                        }
-                        else if (how == "Category")
-                        {
-                            query = query.OrderBy(m => EF.Property<string>(m, how));
-                        }
-                        else if (how == "Name")
-                        {
-                            query = query.OrderBy(m => EF.Property<string>(m, how));
-                        }
-                        else if (how == "Color")
-                        {
-                            query = query.OrderBy(m => EF.Property<string>(m, how));
-                        }
-                        else if (how == "CostPerMeter")
-                        {
-                            query = query.OrderBy(m => EF.Property<int>(m, how));
+                            query = query.Where(m => EF.Property<int>(m, where) == num);
                         }
                     }
+                }
 
-                    materialsBindingSource.DataSource = query.ToList();
+                if (!string.IsNullOrEmpty(how))
+                {
+                    if (how == "Id")
+                    {
+                        query = query.OrderBy(m => EF.Property<int>(m, how));
+                    }
+                    else if (how == "Category")
+                    {
+                        query = query.OrderBy(m => EF.Property<string>(m, how));
+                    }
+                    else if (how == "Name")
+                    {
+                        query = query.OrderBy(m => EF.Property<string>(m, how));
+                    }
+                    else if (how == "Color")
+                    {
+                        query = query.OrderBy(m => EF.Property<string>(m, how));
+                    }
+                    else if (how == "CostPerMeter")
+                    {
+                        query = query.OrderBy(m => EF.Property<int>(m, how));
+                    }
+                }
+
+                materialsBindingSource.DataSource = query.ToList();
             }
             catch (Exception ex)
             {

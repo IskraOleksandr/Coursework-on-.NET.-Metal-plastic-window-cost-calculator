@@ -57,6 +57,7 @@
             textBoxLogin.Name = "textBoxLogin";
             textBoxLogin.Size = new Size(151, 23);
             textBoxLogin.TabIndex = 0;
+            textBoxLogin.TextChanged += textBoxReg_TextChanged;
             // 
             // textBoxPassword
             // 
@@ -66,6 +67,7 @@
             textBoxPassword.Size = new Size(151, 23);
             textBoxPassword.TabIndex = 1;
             textBoxPassword.UseSystemPasswordChar = true;
+            textBoxPassword.TextChanged += textBoxReg_TextChanged;
             // 
             // button1
             // 
@@ -126,6 +128,7 @@
             textBoxFullName.Name = "textBoxFullName";
             textBoxFullName.Size = new Size(151, 23);
             textBoxFullName.TabIndex = 6;
+            textBoxFullName.TextChanged += textBoxReg_TextChanged;
             // 
             // label_Email
             // 
@@ -142,6 +145,7 @@
             textBoxEmail.Name = "textBoxEmail";
             textBoxEmail.Size = new Size(151, 23);
             textBoxEmail.TabIndex = 8;
+            textBoxEmail.TextChanged += textBoxPasswordConfirm_TextChanged;
             // 
             // labelTitle
             // 
@@ -216,6 +220,7 @@
             textBoxPasswordConfirm.Size = new Size(151, 23);
             textBoxPasswordConfirm.TabIndex = 17;
             textBoxPasswordConfirm.UseSystemPasswordChar = true;
+            textBoxPasswordConfirm.TextChanged += textBoxPasswordConfirm_TextChanged;
             // 
             // label_pas_conf
             // 

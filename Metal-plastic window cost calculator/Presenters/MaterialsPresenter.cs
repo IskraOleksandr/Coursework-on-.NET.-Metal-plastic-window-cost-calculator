@@ -1,4 +1,4 @@
-﻿using Metal_plastic_window_cost_calculator.Models; 
+﻿using Metal_plastic_window_cost_calculator.Models;
 using Metal_plastic_window_cost_calculator.Views;
 using System;
 using System.Collections.Generic;
@@ -17,36 +17,31 @@ namespace Metal_plastic_window_cost_calculator.Presenters
     public class MaterialsPresenter
     {
         //Fields
-        private IMaterialsView _View; 
+        private IMaterialsView _View;
         private Window_CalculatorContext _context;
         private BindingSource materialsBindingSource;
-        private IEnumerable<Materials> materialsList;
-        bool isAsc;
-        //Constructor
-        public MaterialsPresenter(IMaterialsView view, Window_CalculatorContext repository)
+
+        public MaterialsPresenter(IMaterialsView view, Window_CalculatorContext context)//Constructor
         {
-            this.materialsBindingSource = new BindingSource();
+            this._context = context;
             this._View = view;
-            this._context = repository;
+
+            this.materialsBindingSource = new BindingSource();
+
             _View.load_combobox_items += new EventHandler<EventArgs>(LoadComboBox);
             _View.get_material_desc += new EventHandler<EventArgs>(test2);
-            _View.SearchEvent += new EventHandler<EventArgs>(SearchPet);
-            _View.SortEvent += new EventHandler<EventArgs>(SortMateriar);
-            //Subscribe event handler methods to view events
-            //this.view.SearchEvent += SearchPet;
-            //Set pets bindind source
-            this._View.SetMaterialsListBindingSource(materialsBindingSource);
 
-            //Load pet list view
-            LoadAllPetList();
-            //Show view
+            _View.SearchEvent += new EventHandler<EventArgs>(SearchMaterial);
+            _View.SortEvent += new EventHandler<EventArgs>(SortMaterial);
 
+            _View.SetMaterialsListBindingSource(materialsBindingSource);
+            LoadAllMaterialsList();
 
-            this._View.Show();
+            _View.Show();
         }
 
         //Methods
-        private void LoadAllPetList()
+        private void LoadAllMaterialsList()
         {
             try
             {
@@ -61,16 +56,16 @@ namespace Metal_plastic_window_cost_calculator.Presenters
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+
             }
         }
+
         public void LoadComboBox(object? sender, EventArgs e)
         {
             var items = GetComboBoxItems();
             var items1 = GetComboBoxItems();
             _View.SetComboBoxItems(items, items1);
         }
-
 
         public async void test2(object? sender, EventArgs e)
         {
@@ -83,7 +78,8 @@ namespace Metal_plastic_window_cost_calculator.Presenters
                 _View.LabelDescription = query.Description;
             }
         }
-        private void SearchPet(object sender, EventArgs e)
+
+        private void SearchMaterial(object sender, EventArgs e)
         {
             var selectedItem = (ComboBoxItem)_View.SearchIn;
             var selectedItemOrderBy = (ComboBoxItem)_View.OrderBy;
@@ -91,14 +87,14 @@ namespace Metal_plastic_window_cost_calculator.Presenters
             SearchData(selectedItem.Id, _View.SearchValue, selectedItemOrderBy.Id);
         }
 
-        private void SortMateriar(object? sender, EventArgs e)
+        private void SortMaterial(object? sender, EventArgs e)
         {
             try
             {
                 var selectedItemOrderBy = (ComboBoxItem)_View.OrderBy;
                 RefreshData(selectedItemOrderBy.Id);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
 
             }
@@ -196,9 +192,10 @@ namespace Metal_plastic_window_cost_calculator.Presenters
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+
             }
         }
+
         public List<ComboBoxItem> GetComboBoxItems()
         {
             return new List<ComboBoxItem> { new ComboBoxItem { Id = "Category", Text = "Category" },

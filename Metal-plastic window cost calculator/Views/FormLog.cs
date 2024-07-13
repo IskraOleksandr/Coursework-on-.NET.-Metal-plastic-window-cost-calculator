@@ -1,5 +1,5 @@
 using Metal_plastic_window_cost_calculator.Models;
-using Metal_plastic_window_cost_calculator.Presenters; 
+using Metal_plastic_window_cost_calculator.Presenters;
 using Metal_plastic_window_cost_calculator.Views;
 using System.Windows.Forms;
 
@@ -7,22 +7,23 @@ namespace Metal_plastic_window_cost_calculator
 {
     public partial class FormLog : Form, IWindow_Calc_Log_View
     {
-        public FormLog Form_Login { get; set; }
 
-        #region IWindow_Calculator_View Implementation
-
+        #region IWindow_Calc_Log_View Implementation
 
         public string FullName { get => textBoxFullName.Text.Trim(); set => textBoxFullName.Text = value; }
         public string Login { get => textBoxLogin.Text.Trim(); set => textBoxLogin.Text = value; }
+
         public string Password { get => textBoxPassword.Text.Trim(); set => textBoxPassword.Text = value; }
         public string PasswordConfirm { get => textBoxPasswordConfirm.Text.Trim(); set => textBoxPasswordConfirm.Text = value; }
 
         public string Email { get => textBoxEmail.Text.Trim(); set => textBoxEmail.Text = value; }
         public string Error_Login { set => label_error_login.Text = value; }
+        public bool ButtonEnabled { set => button1.Enabled = value; get => button1.Enabled; }
 
 
         public event EventHandler<EventArgs> login;
         public event EventHandler<EventArgs> register;
+
         public event EventHandler<EventArgs> register_validation;
         public event EventHandler<EventArgs> login_validation;
 
@@ -34,7 +35,21 @@ namespace Metal_plastic_window_cost_calculator
             MessageBox.Show("Wrong user name or/and password.", "Login",
                  MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
-        #endregion IWindow_Calculator_View Implementation
+
+        public void OpenMainForm(bool flag)
+        {
+            Window_CalculatorContext context = new Window_CalculatorContext();
+            Form1 form1 = new Form1(flag);
+            Window_CalcPresenter presenter = new Window_CalcPresenter(context, this, form1);//form
+
+            form1.Show();
+            this.Hide();
+        }
+
+        #endregion IWindow_Calc_Log_View Implementation
+
+        public FormLog Form_Login { get; set; }
+
         public FormLog()
         {
             InitializeComponent();
@@ -69,6 +84,7 @@ namespace Metal_plastic_window_cost_calculator
             label_Password.Location = new Point(63, 232);//262
             textBoxPassword.Location = new Point(63, 250);//280
             label_error_pas.Location = new Point(63, 276);//306
+            TextBoxsChangeBind(false);
         }
 
 
@@ -170,7 +186,52 @@ namespace Metal_plastic_window_cost_calculator
                 textBoxEmail.TextChanged -= textBoxReg_TextChanged;
             }
         }
+        private void validate_filds()
+        {
+            bool valid = true;
 
+            if (FullName.Length <= 3)
+            {
+                label_error_fullname.Text = "Incorrect full name length";
+                valid = false;
+            }
+            else label_error_fullname.Text = "";
+
+
+            if (Login.Length <= 3)
+            {
+                label_error_login.Text = "Incorrect login length";
+                valid = false;
+            }
+            else label_error_login.Text = "";
+
+
+            if (Password.Length < 3)
+            {
+                label_error_pas.Text = "Incorrect password length";
+                valid = false;
+            }
+            else label_error_pas.Text = "";
+
+
+            if (PasswordConfirm != Password)
+            {
+                label_error_pas_conf.Text = "Password mismatch";
+                valid = false;
+            }
+            else label_error_pas_conf.Text = "";
+
+
+            if (Email.Length < 4)
+            {
+                label_error_email.Text = "Incorrect email";
+                valid = false;
+            }
+            else label_error_email.Text = "";
+
+
+            button1.Enabled = valid;
+        }
         private void button1_Click(object sender, EventArgs e)
         {
             Button button = sender as Button;//
@@ -179,27 +240,15 @@ namespace Metal_plastic_window_cost_calculator
                 login.Invoke(this, EventArgs.Empty);
                 //show_menu();
             }
-            else if (button.Text.Trim() == "Sign Up")
+
+            if (button.Text.Trim() == "Sign Up")
             {
                 register.Invoke(this, EventArgs.Empty);
             }
+
         }
 
-        public void LetLogin()
-        {
-            MessageBox.Show("Wrong user name or/and password.", "Login",
-                 MessageBoxButtons.OK, MessageBoxIcon.Question);
-        }
 
-        public void OpenMainForm(bool flag)
-        {
-            Window_CalculatorContext context = new Window_CalculatorContext(); 
-            Form1 form1 = new Form1(flag);
-            Window_CalcPresenter presenter = new Window_CalcPresenter(context, this, form1);//form
-
-            form1.Show();//
-            this.Hide();
-        }
 
         private void Form1_FormClosing(object? sender, FormClosingEventArgs e)
         {
@@ -208,13 +257,12 @@ namespace Metal_plastic_window_cost_calculator
 
         private void textBoxReg_TextChanged(object sender, EventArgs e)
         {
-            register_validation.Invoke(this, EventArgs.Empty);
+            validate_filds();
         }
 
-        private void textBoxLogin_TextChanged(object sender, EventArgs e)
+        private void textBoxPasswordConfirm_TextChanged(object sender, EventArgs e)
         {
-            login_validation.Invoke(this, EventArgs.Empty);
+            validate_filds();
         }
-
     }
 }

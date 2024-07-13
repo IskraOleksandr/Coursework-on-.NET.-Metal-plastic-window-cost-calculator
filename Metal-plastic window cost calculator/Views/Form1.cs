@@ -12,7 +12,13 @@ namespace Metal_plastic_window_cost_calculator
         public event EventHandler<EventArgs> ShowAdmDbView;
         public event EventHandler<EventArgs> ShowBuyWindowView;
 
+        public void hide_button()
+        {
+            buttonEditDb.Visible = false;
+        }
+
         #endregion IWindow_Calculator_View Implementation
+
         public Form1()
         {
             InitializeComponent();
@@ -24,21 +30,6 @@ namespace Metal_plastic_window_cost_calculator
             buttonEditDb.Visible = flag;
         }
 
-
-
-        public void show_menu()
-        {
-            this.Width = 1010;
-            this.Height = 560;
-        }
-
-        public void hide_button()
-        {
-            buttonEditDb.Visible = false;
-        }
-
-        
-
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             Application.Exit();
@@ -46,6 +37,10 @@ namespace Metal_plastic_window_cost_calculator
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            buttonWindCalc.BackColor = Color.DodgerBlue;
+            buttonEditDb.BackColor = Color.FromArgb(36, 40, 87);
+            buttonMaterials.BackColor = Color.FromArgb(36, 40, 87);
+            ShowBuyWindowView.Invoke(this, EventArgs.Empty);
             foreach (Control c in this.Controls)
             {
                 if (c is MdiClient)
@@ -59,27 +54,18 @@ namespace Metal_plastic_window_cost_calculator
         {
             System.Windows.Forms.Button button = sender as System.Windows.Forms.Button;
 
-            if (button.Name == "buttonHome")
-            {
-                buttonHome.BackColor = Color.DodgerBlue;
-                buttonMaterials.BackColor = Color.FromArgb(36, 40, 87);
-                buttonEditDb.BackColor = Color.FromArgb(36, 40, 87);
-                buttonWindCalc.BackColor = Color.FromArgb(36, 40, 87);
-            }
-
             if (button.Name == "buttonWindCalc")
             {
                 buttonWindCalc.BackColor = Color.DodgerBlue;
-                buttonMaterials.BackColor = Color.FromArgb(36, 40, 87);
                 buttonEditDb.BackColor = Color.FromArgb(36, 40, 87);
-                buttonHome.BackColor = Color.FromArgb(36, 40, 87);
+                buttonMaterials.BackColor = Color.FromArgb(36, 40, 87);
+                ShowBuyWindowView.Invoke(this, EventArgs.Empty);
             }
 
             if (button.Name == "buttonMaterials")
             {
                 buttonMaterials.BackColor = Color.DodgerBlue;
                 buttonEditDb.BackColor = Color.FromArgb(36, 40, 87);
-                buttonHome.BackColor = Color.FromArgb(36, 40, 87);
                 buttonWindCalc.BackColor = Color.FromArgb(36, 40, 87);
                 ShowPetView.Invoke(this, EventArgs.Empty);
             }
@@ -88,17 +74,8 @@ namespace Metal_plastic_window_cost_calculator
             {
                 buttonEditDb.BackColor = Color.DodgerBlue;
                 buttonMaterials.BackColor = Color.FromArgb(36, 40, 87);
-                buttonHome.BackColor = Color.FromArgb(36, 40, 87);
                 buttonWindCalc.BackColor = Color.FromArgb(36, 40, 87);
                 ShowAdmDbView.Invoke(this, EventArgs.Empty);
-            }
-            if (button.Name == "buttonWindCalc")
-            {
-                buttonWindCalc.BackColor= Color.DodgerBlue;
-                buttonEditDb.BackColor = Color.FromArgb(36, 40, 87);
-                buttonMaterials.BackColor = Color.FromArgb(36, 40, 87);
-                buttonHome.BackColor = Color.FromArgb(36, 40, 87);
-                ShowBuyWindowView.Invoke(this, EventArgs.Empty);
             }
         }
 

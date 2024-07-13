@@ -32,7 +32,6 @@
             label_error_color = new Label();
             label_error_name = new Label();
             label_error_category = new Label();
-            textBoxCategory = new TextBox();
             textBoxName = new TextBox();
             label_Category = new Label();
             label_Name = new Label();
@@ -45,6 +44,7 @@
             label_Description = new Label();
             textBoxDescription = new TextBox();
             numericCostPerMetr = new NumericUpDown();
+            comboBox1 = new ComboBox();
             ((System.ComponentModel.ISupportInitialize)numericCostPerMetr).BeginInit();
             SuspendLayout();
             // 
@@ -84,20 +84,10 @@
             label_error_category.Size = new Size(0, 15);
             label_error_category.TabIndex = 28;
             // 
-            // textBoxCategory
-            // 
-            textBoxCategory.Cursor = Cursors.IBeam;
-            textBoxCategory.Location = new Point(45, 71);
-            textBoxCategory.Name = "textBoxCategory";
-            textBoxCategory.Size = new Size(188, 23);
-            textBoxCategory.TabIndex = 17;
-            textBoxCategory.TextChanged += textBoxCategory_TextChanged;
-            // 
             // textBoxName
             // 
             textBoxName.Location = new Point(45, 137);
             textBoxName.Name = "textBoxName";
-            textBoxName.PasswordChar = '*';
             textBoxName.Size = new Size(188, 23);
             textBoxName.TabIndex = 19;
             textBoxName.TextChanged += textBoxCategory_TextChanged;
@@ -210,11 +200,22 @@
             numericCostPerMetr.TabIndex = 35;
             numericCostPerMetr.ValueChanged += textBoxCategory_TextChanged;
             // 
+            // comboBox1
+            // 
+            comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBox1.FormattingEnabled = true;
+            comboBox1.Location = new Point(45, 71);
+            comboBox1.Name = "comboBox1";
+            comboBox1.Size = new Size(188, 23);
+            comboBox1.TabIndex = 36;
+            comboBox1.SelectedIndexChanged += textBoxCategory_TextChanged;
+            // 
             // FormAddMaterial
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(283, 459);
+            Controls.Add(comboBox1);
             Controls.Add(numericCostPerMetr);
             Controls.Add(label_error_description);
             Controls.Add(textBoxDescription);
@@ -223,7 +224,6 @@
             Controls.Add(label_error_color);
             Controls.Add(label_error_name);
             Controls.Add(label_error_category);
-            Controls.Add(textBoxCategory);
             Controls.Add(textBoxName);
             Controls.Add(label_Category);
             Controls.Add(label_Name);
@@ -246,7 +246,6 @@
         private Label label_error_color;
         private Label label_error_name;
         private Label label_error_category;
-        private TextBox textBoxCategory;
         private TextBox textBoxName;
         private Label label_Category;
         private Label label_Name;
@@ -260,5 +259,6 @@
         private Label label_Description;
         private TextBox textBoxDescription;
         private NumericUpDown numericCostPerMetr;
+        private ComboBox comboBox1;
     }
 }

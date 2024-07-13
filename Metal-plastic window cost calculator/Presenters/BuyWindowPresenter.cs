@@ -13,15 +13,14 @@ namespace Metal_plastic_window_cost_calculator.Presenters
 {
     public class BuyWindowPresenter
     {
-        IBuyWindowView _View;
-        Window_CalculatorContext _context;
+        private readonly IBuyWindowView _View;
+        private readonly Window_CalculatorContext _context;
         private BindingSource frameBindingSource;
         private BindingSource glassBindingSource;
         private BindingSource furnitureBindingSource;
 
         private List<Materials> cart;
-        string orderString;
-        //string NL = Environment.NewLine;
+        private string orderString;
         
 
         public BuyWindowPresenter(Window_CalculatorContext context, IBuyWindowView view)
@@ -31,19 +30,23 @@ namespace Metal_plastic_window_cost_calculator.Presenters
 
             frameBindingSource = new BindingSource();
             glassBindingSource = new BindingSource();
-            furnitureBindingSource = new BindingSource();
 
+            furnitureBindingSource = new BindingSource();
             cart = new List<Materials>();
+
             _View.load_datagrid_items += new EventHandler<EventArgs>(load_mat);
             _View.data_grid_frame_click += new EventHandler<EventArgs>(DataGridFrame_click);
+
             _View.data_grid_glass_click += new EventHandler<EventArgs>(DataGridGlass_click);
             _View.data_grid_furniture_click += new EventHandler<EventArgs>(DataGridFurniture_click);
+
             _View.data_grid_cart_click += new EventHandler<EventArgs>(DataGridCart_click);
             _View.text_box_text_change += new EventHandler<EventArgs>(textBoxs_textChange);
             _View.showOrderPriceList += new EventHandler<EventArgs>(showOrder);
 
             this._View.SetDataGridBindingSource(frameBindingSource, glassBindingSource, furnitureBindingSource);
             load_materials_to_dataGrids();
+
             _View.Show();
         }
 
@@ -228,6 +231,8 @@ namespace Metal_plastic_window_cost_calculator.Presenters
 
         private void load_mat(object? sender, EventArgs e)
         {
+            _View.clearDataGrid();
+            _View.setDataGridColums();
             load_materials_to_dataGrids();
         }
 

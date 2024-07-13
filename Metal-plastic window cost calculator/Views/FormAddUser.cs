@@ -7,14 +7,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Runtime.InteropServices.JavaScript.JSType;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 
 namespace Metal_plastic_window_cost_calculator.Views
 {
-    public partial class FormAddUser : Form/*, IAddMaterialView*/
+    public partial class FormAddUser : Form
     {
-        private bool edit { get; set; }
+        public int Id { get; set; }
+        public string FullName { get => textBoxCategory.Text.Trim(); set => textBoxCategory.Text = value; }
+
+        public string Login { get => textBoxName.Text.Trim(); set => textBoxName.Text = value; }
+        public string Password { get => textBoxColor.Text.Trim(); set => textBoxColor.Text = value; }
+
+        public string PasswordConfirm { get => textBoxPasswordConfirm.Text.Trim(); set => textBoxPasswordConfirm.Text = value; }
+        public string Email { get => textBoxDescription.Text.Trim(); set => textBoxDescription.Text = value; }
+        public bool IsAdmin { get; set; }
+
+
         public FormAddUser()
         {
             InitializeComponent();
@@ -27,8 +35,8 @@ namespace Metal_plastic_window_cost_calculator.Views
         {
             InitializeComponent();
             enable_button(false);
-
-            labelTitle.Text = "Add new user";
+            buttonAdd.Text = "Edit";
+            labelTitle.Text = "Edit user";
 
             var row = obj as DataGridViewRow;
             Id = Convert.ToInt32(row.Cells["Id"].Value);
@@ -40,38 +48,7 @@ namespace Metal_plastic_window_cost_calculator.Views
 
         }
 
-        public int Id { get; set; }
-        public string FullName
-        {
-            get => textBoxCategory.Text.Trim();
-            set => textBoxCategory.Text = value;
-        }
 
-        public string Login
-        {
-            get => textBoxName.Text.Trim();
-            set => textBoxName.Text = value;
-        }
-
-        public string Password
-        {
-            get => textBoxColor.Text.Trim();
-            set => textBoxColor.Text = value;
-        }
-
-        public string PasswordConfirm
-        {
-            get => textBoxPasswordConfirm.Text.Trim();
-            set => textBoxPasswordConfirm.Text = value;
-        }
-
-        public string Email
-        {
-            get => textBoxDescription.Text.Trim();
-            set => textBoxDescription.Text = value;
-        }
-
-        public bool IsAdmin { get; set; }
 
         private void buttonAdd_Click(object sender, EventArgs e)
         {
@@ -81,18 +58,8 @@ namespace Metal_plastic_window_cost_calculator.Views
         private void textBoxCategory_TextChanged(object sender, EventArgs e)
         {
             validate_filds();
-            //validate_pas();
         }
 
-        //private void validate_pas()
-        //{
-        //    if (PasswordConfirm != Password)
-        //    {
-        //        label_error_password_confirm.Text = "error";
-        //        valid = false;
-        //    }
-        //    else label_error_password_confirm.Text = "";
-        //}
 
         private void validate_filds()
         {
@@ -100,7 +67,7 @@ namespace Metal_plastic_window_cost_calculator.Views
 
             if (FullName.Length <= 3)
             {
-                label_error_fullname.Text = "error";
+                label_error_fullname.Text = "Incorrect full name length";
                 valid = false;
             }
             else label_error_fullname.Text = "";
@@ -108,7 +75,7 @@ namespace Metal_plastic_window_cost_calculator.Views
 
             if (Login.Length <= 3)
             {
-                label_error_login.Text = "error";
+                label_error_login.Text = "Incorrect login length";
                 valid = false;
             }
             else label_error_login.Text = "";
@@ -116,7 +83,7 @@ namespace Metal_plastic_window_cost_calculator.Views
 
             if (Password.Length < 3)
             {
-                label_error_password.Text = "error";
+                label_error_password.Text = "Incorrect password length";
                 valid = false;
             }
             else label_error_password.Text = "";
@@ -124,15 +91,15 @@ namespace Metal_plastic_window_cost_calculator.Views
 
             if (PasswordConfirm != Password)
             {
-                label_error_password_confirm.Text = "error";
+                label_error_password_confirm.Text = "Password mismatch";
                 valid = false;
             }
             else label_error_password_confirm.Text = "";
 
 
-            if (Email.Length < 1)
+            if (Email.Length < 4)
             {
-                label_error_email.Text = "error";
+                label_error_email.Text = "Incorrect email";
                 valid = false;
             }
             else label_error_email.Text = "";
@@ -144,11 +111,6 @@ namespace Metal_plastic_window_cost_calculator.Views
         {
             if (off_on_flag)
             {
-                //if (PasswordConfirm == Password)
-                //{
-                //    label_error_password_confirm.Text = "";
-                //    valid = false;
-                //}
                 buttonAdd.Enabled = true;
             }
             else
@@ -161,6 +123,11 @@ namespace Metal_plastic_window_cost_calculator.Views
         {
             CheckBox check = sender as CheckBox;
             IsAdmin = check.Checked;
+        }
+
+        private void textBoxPasswordConfirm_TextChanged(object sender, EventArgs e)
+        {
+            validate_filds();
         }
     }
 }

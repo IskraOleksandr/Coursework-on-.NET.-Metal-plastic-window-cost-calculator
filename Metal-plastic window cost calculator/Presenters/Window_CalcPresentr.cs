@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using Metal_plastic_window_cost_calculator.Models;
@@ -30,80 +31,25 @@ namespace Metal_plastic_window_cost_calculator.Presenters
 
             _View.login += new EventHandler<EventArgs>(OnLogin);
             _View.register += new EventHandler<EventArgs>(OnRegister);
-            _View.register_validation += new EventHandler<EventArgs>(onValidation);
 
         }
-
-
-        public async void onValidation(object? sender, EventArgs e)
-        {
-            _user.FullName = _View.FullName;
-            _user.Email = _View.Email;
-            //_user.IsAdmin = _ViewLog.IsAdmin;
-            _user.Login = _View.Login;
-            _user.Password = _View.Password;
-
-            var query = from b in _context.UsersTable select b;
-            var users = query.ToList();
-
-            if (users.Count() == 0)
-            {
-                //_View.LetUserLogin();
-            }
-            else
-            {
-                Check_Login(users);
-                //var users_t = users.Where(a => a.Login == _user.Login);
-                //if (users_t.ToList().Count != 0)
-                //{
-                //    _View.Error_Login = "Логин занят";
-                //}
-                //else _View.Error_Login = "";
-            }
-        }
-
-        public void Check_Login(List<Models.User> users)
-        {
-            var users_t = users.Where(a => a.Login == _user.Login);
-
-            if (_user.Login.Trim().Length <= 3 && _user.Login.Trim().Length > 15)
-            {
-                _View.Error_Login = "Не коректная длина логина";
-            }
-
-            if (users_t.ToList().Count != 0)
-            {
-                _View.Error_Login = "Логин занят";
-            }
-            else _View.Error_Login = "";
-        }
-
-
 
 
 
         public async void OnRegister(object? sender, EventArgs e)
         {
-            //_user.FullName = _ViewLog.FullName;
-            //_user.Email = _ViewLog.Email;
-
-            //_user.Login = _ViewLog.Login;
-            //_user.Password = _ViewLog.Password;
-
-            //await _repository.AddUser(_user);
-            //await _repository.Save();
-
             var user = new Models.User
             {
                 FullName = _View.FullName,
                 Login = _View.Login,
                 Password = _View.Password,
+
                 Email = _View.Email,
                 IsAdmin = false,
             };
             _context.UsersTable.Add(user);
 
-            _View.LetUserLogin();
+            //_View.LetUserLogin();
         }
 
         public async void OnLogin(object? sender, EventArgs e)
@@ -142,21 +88,21 @@ namespace Metal_plastic_window_cost_calculator.Presenters
         {
             IMaterialsView view = Materials_Form.GetInstace((Form1)_view);
             Window_CalculatorContext context = new Window_CalculatorContext();
-            new MaterialsPresenter(view, context);//
+            MaterialsPresenter presenter = new MaterialsPresenter(view, context);//
         }
 
         private void ShowAdminView(object sender, EventArgs e)
         {
             IAdminView view = Admin_Form.GetInstace((Form1)_view);
             Window_CalculatorContext context = new Window_CalculatorContext();
-            new AdminMaterialsPresenter(view, context);//
+            AdminMaterialsPresenter presenter = new AdminMaterialsPresenter(view, context);//
         }
 
         private void ShowBuyWindowView(object sender, EventArgs e)
         {
             IBuyWindowView view = FormBuyWindow.GetInstace((Form1)_view);
             Window_CalculatorContext context = new Window_CalculatorContext();
-            new BuyWindowPresenter(context, view);
+            BuyWindowPresenter presenter = new BuyWindowPresenter(context, view);
             
         }
     }

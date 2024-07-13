@@ -10,26 +10,24 @@ namespace Metal_plastic_window_cost_calculator.Views
     {
         string FullName { get; set; }
         string Login { get; set; }
+
         string Password { get; set; }
-        string PasswordConfirm { get; set; }//
+        string PasswordConfirm { get; set; }
+
         string Email { get; set; }
-        //bool IsAdmin { get; set; }
-        
-        
         string Error_Login { set; }
 
-        
+        bool ButtonEnabled { get; set; }
 
 
         event EventHandler<EventArgs> login;
         event EventHandler<EventArgs> register;
         event EventHandler<EventArgs> register_validation;
 
-        event EventHandler<EventArgs> ShowPetView;//
-        event EventHandler<EventArgs> ShowAdmDbView;//
+        event EventHandler<EventArgs> ShowPetView;
+        event EventHandler<EventArgs> ShowAdmDbView;
 
         void LetUserLogin();
-        void LetLogin();
         void OpenMainForm(bool flag);
     }
 }

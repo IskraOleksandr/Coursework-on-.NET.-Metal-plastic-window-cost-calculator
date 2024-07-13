@@ -12,7 +12,8 @@ namespace Metal_plastic_window_cost_calculator.Views
 {
     public partial class FormBuyWindow : Form, IBuyWindowView
     {
-        private static FormBuyWindow instance;
+        
+        #region IBuyWindowView Implementation
 
         public string TextBoxHeightText { get => textBoxHeight.Text.Trim(); set => textBoxHeight.Text = value; }
         public string TextBoxWidthText { get => textBoxWidth.Text.Trim(); set => textBoxWidth.Text = value; }
@@ -21,9 +22,74 @@ namespace Metal_plastic_window_cost_calculator.Views
         public string Label_Price { get => label_Price.Text.Trim(); set => label_Price.Text = value; }
         public bool ButtonEnabled { get => button1.Enabled; set => button1.Enabled = value; }
 
-        public FormBuyWindow()
+
+        public event EventHandler<EventArgs> load_datagrid_items;
+        public event EventHandler<EventArgs> data_grid_frame_click;
+
+        public event EventHandler<EventArgs> data_grid_glass_click;
+        public event EventHandler<EventArgs> data_grid_furniture_click;
+
+        public event EventHandler<EventArgs> data_grid_cart_click;
+        public event EventHandler<EventArgs> text_box_text_change;
+        public event EventHandler<EventArgs> showOrderPriceList;
+
+
+        public void SetDataGridBindingSource(BindingSource frameList, BindingSource glassList, BindingSource furnitureList)
         {
-            InitializeComponent();
+            dataGridViewFrame.DataSource = frameList;
+            dataGridViewGlass.DataSource = glassList;
+            dataGridViewFurniture.DataSource = furnitureList;
+        }
+
+        public void RemoveDataGridsColumn(string column_Name)
+        {
+            dataGridViewFrame.Columns[column_Name].Visible = false;
+            dataGridViewGlass.Columns[column_Name].Visible = false;
+            dataGridViewFurniture.Columns[column_Name].Visible = false;
+        }
+
+        public object getDataGridFrameSelectedRow()
+        {
+            return dataGridViewFrame.SelectedRows[0];
+        }
+
+        public object getDataGridGlassSelectedRow()
+        {
+            return dataGridViewGlass.SelectedRows[0];
+        }
+
+        public object getDataGridFurnitureSelectedRow()
+        {
+            return dataGridViewFurniture.SelectedRows[0];
+        }
+
+        public object getDataGridSelectedRow()
+        {
+            return dataGridView1.SelectedRows[0];
+        }
+
+        public object getDataGridViewRowCollection()
+        {
+            return dataGridView1.Rows;
+        }
+
+        public void clearDataGrid()
+        {
+            dataGridView1.Columns.Clear();
+        }
+
+        public void showMessageBoxWithIcon(string message, string caption)
+        {
+            MessageBox.Show(message, caption, MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        public void showMessageBox(string message, string caption)
+        {
+            MessageBox.Show(message, caption, MessageBoxButtons.OK);
+        }
+
+        public void setDataGridColums()
+        {
             var column1 = new DataGridViewColumn();
             column1.HeaderText = "Category"; //текст в шапке
             column1.ReadOnly = true; //значение в этой колонке нельзя править
@@ -53,13 +119,16 @@ namespace Metal_plastic_window_cost_calculator.Views
             dataGridView1.AllowUserToAddRows = false;
         }
 
-        public event EventHandler<EventArgs> load_datagrid_items;
-        public event EventHandler<EventArgs> data_grid_frame_click;
-        public event EventHandler<EventArgs> data_grid_glass_click;
-        public event EventHandler<EventArgs> data_grid_furniture_click;
-        public event EventHandler<EventArgs> data_grid_cart_click;
-        public event EventHandler<EventArgs> text_box_text_change;
-        public event EventHandler<EventArgs> showOrderPriceList;
+        #endregion IBuyWindowView Implementation
+
+        private static FormBuyWindow instance;//Singleton pattern (Open a single form instance)
+
+        public FormBuyWindow()
+        {
+            InitializeComponent();
+            setDataGridColums();
+            ButtonEnabled = false;
+        }
 
         public static FormBuyWindow GetInstace(Form parentContainer)
         {
@@ -79,20 +148,6 @@ namespace Metal_plastic_window_cost_calculator.Views
             return instance;
         }
 
-
-
-        public void SetDataGridBindingSource(BindingSource frameList, BindingSource glassList, BindingSource furnitureList)
-        {
-            dataGridViewFrame.DataSource = frameList;
-            dataGridViewGlass.DataSource = glassList;
-            dataGridViewFurniture.DataSource = furnitureList;
-        }
-        public void RemoveDataGridsColumn(string column_Name)
-        {
-            dataGridViewFrame.Columns[column_Name].Visible = false;
-            dataGridViewGlass.Columns[column_Name].Visible = false;
-            dataGridViewFurniture.Columns[column_Name].Visible = false;
-        }
         private void FormBuyWindow_Load(object sender, EventArgs e)
         {
             load_datagrid_items.Invoke(this, EventArgs.Empty);
@@ -103,41 +158,6 @@ namespace Metal_plastic_window_cost_calculator.Views
             {
                 data_grid_cart_click.Invoke(this, EventArgs.Empty);
             }
-        }
-
-        public object getDataGridFrameSelectedRow()
-        {
-            return dataGridViewFrame.SelectedRows[0];
-        }
-
-        public object getDataGridGlassSelectedRow()
-        {
-            return dataGridViewGlass.SelectedRows[0];
-        }
-
-        public object getDataGridFurnitureSelectedRow()
-        {
-            return dataGridViewFurniture.SelectedRows[0];
-        }
-
-        public object getDataGridSelectedRow()
-        {
-            return dataGridView1.SelectedRows[0];
-        }
-
-        public object getDataGridViewRowCollection()
-        {
-            return dataGridView1.Rows;
-        }
-
-        public void showMessageBoxWithIcon(string message, string caption)
-        {
-            MessageBox.Show(message, caption, MessageBoxButtons.OK, MessageBoxIcon.Error);
-        }
-
-        public void showMessageBox(string message, string caption)
-        {
-            MessageBox.Show(message, caption, MessageBoxButtons.OK);
         }
 
         private void dataGridViewFrame_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
