@@ -26,6 +26,7 @@ namespace Metal_plastic_window_cost_calculator.Presenters
 
             _view.ShowPetView += new EventHandler<EventArgs>(ShowMaterialssView);
             _view.ShowAdmDbView += new EventHandler<EventArgs>(ShowAdminView);
+            _view.ShowBuyWindowView += new EventHandler<EventArgs>(ShowBuyWindowView);
 
             _View.login += new EventHandler<EventArgs>(OnLogin);
             _View.register += new EventHandler<EventArgs>(OnRegister);
@@ -126,8 +127,6 @@ namespace Metal_plastic_window_cost_calculator.Presenters
                     if (users_t.ToList()[0].IsAdmin == true)
                     {
                         _View.OpenMainForm(true);
-                        _view.hide_button();
-                        MessageBox.Show("---");
                     }
                     else
                     {
@@ -151,6 +150,14 @@ namespace Metal_plastic_window_cost_calculator.Presenters
             IAdminView view = Admin_Form.GetInstace((Form1)_view);
             Window_CalculatorContext context = new Window_CalculatorContext();
             new AdminMaterialsPresenter(view, context);//
+        }
+
+        private void ShowBuyWindowView(object sender, EventArgs e)
+        {
+            IBuyWindowView view = FormBuyWindow.GetInstace((Form1)_view);
+            Window_CalculatorContext context = new Window_CalculatorContext();
+            new BuyWindowPresenter(context, view);
+            
         }
     }
 }

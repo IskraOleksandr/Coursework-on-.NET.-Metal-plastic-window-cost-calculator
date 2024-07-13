@@ -10,6 +10,7 @@ namespace Metal_plastic_window_cost_calculator
 
         public event EventHandler<EventArgs> ShowPetView;
         public event EventHandler<EventArgs> ShowAdmDbView;
+        public event EventHandler<EventArgs> ShowBuyWindowView;
 
         #endregion IWindow_Calculator_View Implementation
         public Form1()
@@ -90,6 +91,14 @@ namespace Metal_plastic_window_cost_calculator
                 buttonHome.BackColor = Color.FromArgb(36, 40, 87);
                 buttonWindCalc.BackColor = Color.FromArgb(36, 40, 87);
                 ShowAdmDbView.Invoke(this, EventArgs.Empty);
+            }
+            if (button.Name == "buttonWindCalc")
+            {
+                buttonWindCalc.BackColor= Color.DodgerBlue;
+                buttonEditDb.BackColor = Color.FromArgb(36, 40, 87);
+                buttonMaterials.BackColor = Color.FromArgb(36, 40, 87);
+                buttonHome.BackColor = Color.FromArgb(36, 40, 87);
+                ShowBuyWindowView.Invoke(this, EventArgs.Empty);
             }
         }
 

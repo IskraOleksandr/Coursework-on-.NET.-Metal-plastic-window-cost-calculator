@@ -44,7 +44,7 @@ namespace Metal_plastic_window_cost_calculator.Presenters
 
             //Load pet list view
 
-            //LoadAllPetList();
+            LoadAllItemsList();
 
             //Show view
             this._View.Show();

@@ -164,6 +164,7 @@
             Controls.Add(panel1);
             Icon = (Icon)resources.GetObject("$this.Icon");
             IsMdiContainer = true;
+            MinimumSize = new Size(900, 540);
             Name = "Form1";
             Text = "Window Calculator";
             FormClosing += Form1_FormClosing;
