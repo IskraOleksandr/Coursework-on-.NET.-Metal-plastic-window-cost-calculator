@@ -20,14 +20,18 @@ namespace Metal_plastic_window_cost_calculator.Views
 
         public string PasswordConfirm { get => textBoxPasswordConfirm.Text.Trim(); set => textBoxPasswordConfirm.Text = value; }
         public string Email { get => textBoxDescription.Text.Trim(); set => textBoxDescription.Text = value; }
-        public bool IsAdmin { get; set; }
+        public bool IsAdmin { get => checkBoxAdminReg.Checked; set => checkBoxAdminReg.Checked = value; }
 
+
+        private bool IsEdit { get; set; }
 
         public FormAddUser()
         {
             InitializeComponent();
-            labelTitle.Text = "Add new user";
+            this.Text = "Add new user";
+            labelTitle.Text = "Add user";
             enable_button(false);
+            IsEdit = false;
             Id = 0;
         }
 
@@ -35,17 +39,33 @@ namespace Metal_plastic_window_cost_calculator.Views
         {
             InitializeComponent();
             enable_button(false);
+            this.Text = "Edit user";
             buttonAdd.Text = "Edit";
             labelTitle.Text = "Edit user";
+            this.Height = 370;
+            IsEdit = true;
 
             var row = obj as DataGridViewRow;
             Id = Convert.ToInt32(row.Cells["Id"].Value);
             FullName = row.Cells["FullName"].Value.ToString();
             Login = row.Cells["Login"].Value.ToString();
-            Password = row.Cells["Password"].Value.ToString();
+            
             Email = row.Cells["Email"].Value.ToString();
             IsAdmin = Convert.ToBoolean(row.Cells["IsAdmin"].Value);
 
+            label_Color.Visible = false;
+            textBoxColor.Visible = false;
+            label_error_password.Visible = false;
+
+            label_error_password_confirm.Visible = false;
+            textBoxPasswordConfirm.Visible = false;
+            label_CostPerMetr.Visible = false;
+
+            label_Description.Location = new Point(45, 187);
+            textBoxDescription.Location = new Point(45, 209);
+            label_error_email.Location = new Point(45,231);
+            checkBoxAdminReg.Location = new Point(45,251);
+            buttonAdd.Location = new Point(97, 285);
         }
 
 
@@ -81,21 +101,23 @@ namespace Metal_plastic_window_cost_calculator.Views
             else label_error_login.Text = "";
 
 
-            if (Password.Length < 3)
+            if (!IsEdit)
             {
-                label_error_password.Text = "Incorrect password length";
-                valid = false;
+                if (Password.Length < 3)
+                {
+                    label_error_password.Text = "Incorrect password length";
+                    valid = false;
+                }
+                else label_error_password.Text = "";
+
+
+                if (PasswordConfirm != Password)
+                {
+                    label_error_password_confirm.Text = "Password mismatch";
+                    valid = false;
+                }
+                else label_error_password_confirm.Text = "";
             }
-            else label_error_password.Text = "";
-
-
-            if (PasswordConfirm != Password)
-            {
-                label_error_password_confirm.Text = "Password mismatch";
-                valid = false;
-            }
-            else label_error_password_confirm.Text = "";
-
 
             if (Email.Length < 4)
             {

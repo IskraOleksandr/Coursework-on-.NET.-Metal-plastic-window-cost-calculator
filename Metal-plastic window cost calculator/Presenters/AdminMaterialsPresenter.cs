@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
@@ -104,11 +105,32 @@ namespace Metal_plastic_window_cost_calculator.Presenters
             }
             else if (str == "us")
             {
+                byte[] saltbuf = new byte[16];
+
+                RandomNumberGenerator randomNumberGenerator = RandomNumberGenerator.Create();
+                randomNumberGenerator.GetBytes(saltbuf);
+
+                StringBuilder sb = new StringBuilder(16);
+                for (int i = 0; i < 16; i++)
+                    sb.Append(string.Format("{0:X2}", saltbuf[i]));
+                string salt = sb.ToString();
+
+                byte[] password = Encoding.Unicode.GetBytes(salt + _View.Password);//переводим пароль в байт-массив  
+
+                var md5 = MD5.Create();//создаем объект для получения средств шифрования  
+
+                byte[] byteHash = md5.ComputeHash(password);//вычисляем хеш-представление в байтах  
+
+                StringBuilder hash = new StringBuilder(byteHash.Length);
+                for (int i = 0; i < byteHash.Length; i++)
+                    hash.Append(string.Format("{0:X2}", byteHash[i]));
+
                 var user = new User
                 {
                     FullName = _View.FullName,
                     Login = _View.Login,
-                    Password = _View.Password,
+                    Password = hash.ToString(),
+                    Salt = salt,
                     Email = _View.Email,
                     IsAdmin = _View.IsAdmin,
                 };
@@ -138,7 +160,6 @@ namespace Metal_plastic_window_cost_calculator.Presenters
 
                 query.FullName = _View.FullName;
                 query.Login = _View.Login;
-                query.Password = _View.Password;//
                 query.Email = _View.Email;
                 query.IsAdmin = _View.IsAdmin;
             }
@@ -150,6 +171,7 @@ namespace Metal_plastic_window_cost_calculator.Presenters
         private void DeleteItem(object? sender, EventArgs e)
         {
             string str = sender as string;
+
             if (str == "mat")
             {
                 var row = _View.getDataGridSelectedRow() as DataGridViewRow;
@@ -209,6 +231,7 @@ namespace Metal_plastic_window_cost_calculator.Presenters
                     var query = from b in _context.UsersTable select b;
                     materialsBindingSource.DataSource = query.ToList();
                     this._View.RemoveDataGridColumn("Password");
+                    this._View.RemoveDataGridColumn("Salt");
                 }
             }
             catch (Exception ex)

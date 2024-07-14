@@ -207,6 +207,7 @@ namespace Metal_plastic_window_cost_calculator
             ClientSize = new Size(921, 484);
             Controls.Add(dataGridView1);
             Controls.Add(groupBox1);
+            FormBorderStyle = FormBorderStyle.None;
             Name = "Materials_Form";
             Text = "Form2";
             Load += Materials_Form_Load;

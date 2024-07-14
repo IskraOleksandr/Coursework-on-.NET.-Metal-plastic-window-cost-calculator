@@ -127,48 +127,64 @@ namespace Metal_plastic_window_cost_calculator
                 button1.Location = new Point(95, 388);
                 label1.Location = new Point(169, 431);
 
+                ClearTextBoxs();
                 TextBoxsChangeBind(true);
             }
             else if (label1.Text == "Login")
             {
-                button1.Location = new Point(95, 300);
-                label7.Location = new Point(30, 345);
-                label1.Location = new Point(169, 345);
-
-                label_FullName.Visible = false;
-                textBoxFullName.Visible = false;
-                label_error_fullname.Visible = false;
-
-                label_Email.Visible = false;
-                textBoxEmail.Visible = false;
-                label_error_email.Visible = false;
-
-                label_pas_conf.Visible = false;
-                textBoxPasswordConfirm.Visible = false;
-                label_error_pas_conf.Visible = false;
-
-
-                labelTitle.Location = new Point(88, 93);//143
-
-                label_Login.Location = new Point(63, 168);//198    -30
-                textBoxLogin.Location = new Point(63, 186);//216
-                label_error_login.Location = new Point(63, 210);//240
-
-                label_Password.Location = new Point(63, 232);//262
-                textBoxPassword.Location = new Point(63, 250);//280
-                label_error_pas.Location = new Point(63, 276);//306
-
-                labelTitle.Text = "LOG IN";
-                button1.Text = "Log In";
-                label1.Text = "Registration";
-                label7.Text = "Don't have an account?";
-
-                this.Height = 415;
-                TextBoxsChangeBind(false);
+                ChangeFormToLogin();
+                ClearTextBoxs();
             }
 
         }
 
+        public void ChangeFormToLogin()
+        {
+            button1.Location = new Point(95, 300);
+            label7.Location = new Point(30, 345);
+            label1.Location = new Point(169, 345);
+
+            label_FullName.Visible = false;
+            textBoxFullName.Visible = false;
+            label_error_fullname.Visible = false;
+
+            label_Email.Visible = false;
+            textBoxEmail.Visible = false;
+            label_error_email.Visible = false;
+
+            label_pas_conf.Visible = false;
+            textBoxPasswordConfirm.Visible = false;
+            label_error_pas_conf.Visible = false;
+
+
+            labelTitle.Location = new Point(88, 93);//143
+
+            label_Login.Location = new Point(63, 168);//198    -30
+            textBoxLogin.Location = new Point(63, 186);//216
+            label_error_login.Location = new Point(63, 210);//240
+
+            label_Password.Location = new Point(63, 232);//262
+            textBoxPassword.Location = new Point(63, 250);//280
+            label_error_pas.Location = new Point(63, 276);//306
+
+            labelTitle.Text = "LOG IN";
+            button1.Text = "Log In";
+            label1.Text = "Registration";
+            label7.Text = "Don't have an account?";
+
+            this.Height = 415;
+            TextBoxsChangeBind(false);
+        }
+
+        public void ClearTextBoxs()
+        {
+            textBoxFullName.Text = "";
+            textBoxLogin.Text = "";
+
+            textBoxPassword.Text = "";
+            textBoxPasswordConfirm.Text = "";
+            textBoxEmail.Text = "";
+        }
         private void TextBoxsChangeBind(bool flag)
         {
             if (flag)//true == register validation on
@@ -201,6 +217,14 @@ namespace Metal_plastic_window_cost_calculator
             if (Login.Length <= 3)
             {
                 label_error_login.Text = "Incorrect login length";
+                valid = false;
+            }
+            else label_error_login.Text = "";
+
+
+            if (Login == "Admin")
+            {
+                label_error_login.Text = "Incorrect login";
                 valid = false;
             }
             else label_error_login.Text = "";
@@ -248,6 +272,10 @@ namespace Metal_plastic_window_cost_calculator
 
         }
 
+        private void ShowMessageBox()
+        {
+
+        }
 
 
         private void Form1_FormClosing(object? sender, FormClosingEventArgs e)

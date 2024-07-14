@@ -29,5 +29,8 @@ namespace Metal_plastic_window_cost_calculator.Views
 
         void LetUserLogin();
         void OpenMainForm(bool flag);
+
+        void ClearTextBoxs();
+        void ChangeFormToLogin();
     }
 }

@@ -14,7 +14,7 @@ namespace Metal_plastic_window_cost_calculator.Views
     public partial class FormAddMaterial : Form
     {
         public int Id { get; set; }
-        public string Category { get => comboBox1.SelectedItem.ToString(); set => comboBox1.SelectedItem = value; }
+        public string Category { get => textBoxCategory.Text.ToString(); set => textBoxCategory.Text = value; }
 
         public string Name_ { get => textBoxName.Text.Trim(); set => textBoxName.Text = value; }
         public string Color_ { get => textBoxColor.Text.Trim(); set => textBoxColor.Text = value; }
@@ -27,10 +27,6 @@ namespace Metal_plastic_window_cost_calculator.Views
         {
             InitializeComponent();
             labelTitle.Text = "Add new material";
-            comboBox1.Items.Add("Select");
-            comboBox1.Items.Add("Frame");
-            comboBox1.Items.Add("Glass");
-            comboBox1.Items.Add("Furniture");
             enable_button(false);
             Id = 0;
         }
@@ -42,10 +38,6 @@ namespace Metal_plastic_window_cost_calculator.Views
             buttonAdd.Text = "Edit";
 
             labelTitle.Text = "Add new material";
-            comboBox1.Items.Add("Select");
-            comboBox1.Items.Add("Frame");
-            comboBox1.Items.Add("Glass");
-            comboBox1.Items.Add("Furniture");
 
             var row = obj as DataGridViewRow;
             Id = Convert.ToInt32(row.Cells["Id"].Value);
@@ -72,9 +64,9 @@ namespace Metal_plastic_window_cost_calculator.Views
         {
             bool valid = true;
 
-            if (Category == "Select")
+            if (Category.Length <= 2)
             {
-                label_error_category.Text = "Please select a category";
+                label_error_category.Text = "Invalid category length";
                 valid = false;
             }
             else label_error_category.Text = "";

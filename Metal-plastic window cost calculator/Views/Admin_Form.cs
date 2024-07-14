@@ -224,16 +224,16 @@ namespace Metal_plastic_window_cost_calculator
             {
                 button.BackColor = Color.DodgerBlue;
                 buttonDESC.BackColor = Color.WhiteSmoke;
-                SortEvent.Invoke(this, EventArgs.Empty);
                 IsASC = true;
+                SortEvent.Invoke(this, EventArgs.Empty);
             }
 
             if (button.Name == "buttonDESC" && button.BackColor == Color.WhiteSmoke)
             {
                 button.BackColor = Color.DodgerBlue;
                 buttonASC.BackColor = Color.WhiteSmoke;
-                SortEvent.Invoke(this, EventArgs.Empty);
                 IsASC = false;
+                SortEvent.Invoke(this, EventArgs.Empty);
             }
 
             if (button.Name == "buttonAdd")

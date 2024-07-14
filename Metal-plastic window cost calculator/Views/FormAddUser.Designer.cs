@@ -61,7 +61,7 @@
             // 
             label_error_password.AutoSize = true;
             label_error_password.ForeColor = Color.Red;
-            label_error_password.Location = new Point(45, 229);
+            label_error_password.Location = new Point(45, 231);
             label_error_password.Name = "label_error_password";
             label_error_password.Size = new Size(0, 15);
             label_error_password.TabIndex = 30;
@@ -123,7 +123,7 @@
             // 
             labelTitle.AutoSize = true;
             labelTitle.Font = new Font("Calibri", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 204);
-            labelTitle.Location = new Point(71, 18);
+            labelTitle.Location = new Point(87, 19);
             labelTitle.Name = "labelTitle";
             labelTitle.Size = new Size(98, 26);
             labelTitle.TabIndex = 27;
@@ -165,7 +165,7 @@
             buttonAdd.ForeColor = Color.White;
             buttonAdd.Location = new Point(97, 420);
             buttonAdd.Name = "buttonAdd";
-            buttonAdd.Size = new Size(75, 27);
+            buttonAdd.Size = new Size(78, 27);
             buttonAdd.TabIndex = 18;
             buttonAdd.Text = "Add";
             buttonAdd.UseVisualStyleBackColor = false;
@@ -223,7 +223,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(283, 459);
+            ClientSize = new Size(275, 459);
             Controls.Add(checkBoxAdminReg);
             Controls.Add(textBoxPasswordConfirm);
             Controls.Add(label_error_email);

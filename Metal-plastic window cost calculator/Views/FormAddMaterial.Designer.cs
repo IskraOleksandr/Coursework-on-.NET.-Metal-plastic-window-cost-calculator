@@ -44,7 +44,7 @@
             label_Description = new Label();
             textBoxDescription = new TextBox();
             numericCostPerMetr = new NumericUpDown();
-            comboBox1 = new ComboBox();
+            textBoxCategory = new TextBox();
             ((System.ComponentModel.ISupportInitialize)numericCostPerMetr).BeginInit();
             SuspendLayout();
             // 
@@ -200,22 +200,20 @@
             numericCostPerMetr.TabIndex = 35;
             numericCostPerMetr.ValueChanged += textBoxCategory_TextChanged;
             // 
-            // comboBox1
+            // textBoxCategory
             // 
-            comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new Point(45, 71);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(188, 23);
-            comboBox1.TabIndex = 36;
-            comboBox1.SelectedIndexChanged += textBoxCategory_TextChanged;
+            textBoxCategory.Location = new Point(45, 71);
+            textBoxCategory.Name = "textBoxCategory";
+            textBoxCategory.Size = new Size(188, 23);
+            textBoxCategory.TabIndex = 36;
+            textBoxCategory.TextChanged += textBoxCategory_TextChanged;
             // 
             // FormAddMaterial
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(283, 459);
-            Controls.Add(comboBox1);
+            Controls.Add(textBoxCategory);
             Controls.Add(numericCostPerMetr);
             Controls.Add(label_error_description);
             Controls.Add(textBoxDescription);
@@ -259,6 +257,6 @@
         private Label label_Description;
         private TextBox textBoxDescription;
         private NumericUpDown numericCostPerMetr;
-        private ComboBox comboBox1;
+        private TextBox textBoxCategory;
     }
 }
